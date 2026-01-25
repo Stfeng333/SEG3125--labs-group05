@@ -45,6 +45,21 @@ footer {
   padding: 16px 24px;
   box-sizing: border-box;
 }
+.question-number{
+  display : inline-block;
+  margin-bottom: 10px;
+  padding: 4px 10px;
+  border-radius: 8px;
+
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+
+  background: rgba(22, 67, 139, 0.2);
+  color: var(--hover);
+  border: 1px solid rgba(47, 92, 164, 0.35)
+}
 
 /* added wrapper for survey content */
 .survey {
