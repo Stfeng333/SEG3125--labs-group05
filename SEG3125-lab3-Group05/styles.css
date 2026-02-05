@@ -1,304 +1,387 @@
 /* essential colors that we will use */
 :root {
-    --primary-color: #2ecc71;
-    --primary-dark: #27ae60;
-    --secondary-color: #3498db;
-    --accent-color: #e74c3c;
-    --dark-bg: #2c3e50;
-    --light-bg: #ecf0f1;
-    --text-dark: #2c3e50;
-    --text-light: #7f8c8d;
-    --border-color: #bdc3c7;
-    --success-color: #27ae60;
+  --primary-color: #2ecc71;
+  --primary-dark: #27ae60;
+  --secondary-color: #3498db;
+  --accent-color: #e74c3c;
+  --dark-bg: #2c3e50;
+  --light-bg: #ecf0f1;
+  --text-dark: #2c3e50;
+  --text-light: #7f8c8d;
+  --border-color: #bdc3c7;
+  --success-color: #27ae60;
 }
 
 /* global syling for the body */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 16px;
-    line-height: 1.6;
-    color: var(--text-dark);
-    background-color: #f8f9fa;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-dark);
+  background-color: #f8f9fa;
 }
 
 /* enlarging accessibility, optional requirement */
 body.large-text {
-    font-size: 20px;
+  font-size: 20px;
 }
 
 body.large-text h1 {
-    font-size: 3rem;
+  font-size: 3rem;
 }
 
 body.large-text h2 {
-    font-size: 2.5rem;
+  font-size: 2.5rem;
 }
 
 body.large-text h3 {
-    font-size: 2rem;
+  font-size: 2rem;
 }
 
 body.large-text .product-name {
-    font-size: 1.6rem;
+  font-size: 1.6rem;
 }
 
 body.large-text .btn-primary,
 body.large-text .btn-secondary,
 body.large-text .btn-add-cart,
 body.large-text .nav-btn {
-    font-size: 1.3rem;
-    padding: 15px 30px;
+  font-size: 1.3rem;
+  padding: 15px 30px;
 }
 
 /* header styling and navigation */
 header {
-    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
-    color: white;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--primary-dark)
+  );
+  color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
 .header-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 1.5rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.5rem 2rem;
 }
 
 .store-name {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    text-align: center;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-align: center;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 /*the next part is for the navigation buttons*/
 nav {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .nav-btn {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-    border: 2px solid white;
-    padding: 0.75rem 1.5rem;
-    font-size: 1rem;
-    font-weight: 600;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: all 0.3s ease;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 2px solid white;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .nav-btn:hover {
-    background-color: white;
-    color: var(--primary-color);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: white;
+  color: var(--primary-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .nav-btn.active {
-    background-color: white;
-    color: var(--primary-color);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: white;
+  color: var(--primary-color);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 #cart-count {
-    font-weight: 700;
+  font-weight: 700;
 }
 
 /* putting down here the regular main content */
 main {
-    min-height: calc(100vh - 250px);
+  min-height: calc(100vh - 250px);
 }
 
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
 }
 
 .page-section {
-    display: none;
-    animation: fadeIn 0.5s ease;
+  display: none;
+  animation: fadeIn 0.5s ease;
 }
 
 .page-section.active {
-    display: block;
+  display: block;
 }
 
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 h2 {
-    font-size: 2.5rem;
-    color: var(--dark-bg);
-    margin-bottom: 1rem;
-    text-align: center;
+  font-size: 2.5rem;
+  color: var(--dark-bg);
+  margin-bottom: 1rem;
+  text-align: center;
 }
 
 .section-description {
-    text-align: center;
-    font-size: 1.1rem;
-    color: var(--text-light);
-    margin-bottom: 2rem;
+  text-align: center;
+  font-size: 1.1rem;
+  color: var(--text-light);
+  margin-bottom: 2rem;
 }
 
 /* down here we will make the styles for the cutomer page */
 .customer-form {
-    background: white;
-    padding: 2.5rem;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    max-width: 700px;
-    margin: 0 auto;
+  background: white;
+  padding: 2.5rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  max-width: 700px;
+  margin: 0 auto;
 }
 
 .form-group {
-    margin-bottom: 2.5rem;
+  margin-bottom: 2.5rem;
 }
 
 .form-group h3 {
-    font-size: 1.5rem;
-    color: var(--primary-color);
-    margin-bottom: 1rem;
-    border-bottom: 2px solid var(--light-bg);
-    padding-bottom: 0.5rem;
+  font-size: 1.5rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  border-bottom: 2px solid var(--light-bg);
+  padding-bottom: 0.5rem;
 }
 
 .checkbox-group,
 .radio-group {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .checkbox-label,
 .radio-label {
-    display: flex;
-    align-items: center;
-    padding: 1rem;
-    background-color: var(--light-bg);
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  background-color: var(--light-bg);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 /* hover effect for checkbox and radio labels */
 .checkbox-label:hover,
 .radio-label:hover {
-    background-color: #d5dbdb;
-    transform: translateX(5px);
+  background-color: #d5dbdb;
+  transform: translateX(5px);
 }
 
 /* styling the checkbox and radio inputs */
 .checkbox-label input,
 .radio-label input {
-    width: 20px;
-    height: 20px;
-    margin-right: 1rem;
-    cursor: pointer;
+  width: 20px;
+  height: 20px;
+  margin-right: 1rem;
+  cursor: pointer;
 }
 
 /* styling the labels text */
 .checkbox-label span,
 .radio-label span {
-    font-size: 1.1rem;
+  font-size: 1.1rem;
 }
 
 /* styling the buttons */
 .btn-primary {
-    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
-    color: white;
-    border: none;
-    padding: 1rem 2rem;
-    font-size: 1.1rem;
-    font-weight: 600;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 10px rgba(46, 204, 113, 0.3);
-    width: 100%;
-    margin-top: 1rem;
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--primary-dark)
+  );
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(46, 204, 113, 0.3);
+  width: 100%;
+  margin-top: 1rem;
 }
 
 .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(46, 204, 113, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(46, 204, 113, 0.4);
+}
+
+/* styling the slide that controls price ranges */
+.price-slider-container {
+  padding: 1rem;
+  background-color: var(--light-bg);
+  border-radius: 8px;
+}
+
+.price-labels {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  color: var(--text-dark);
+}
+
+#price-range-value {
+  font-weight: 600;
+  color: var(--primary-color);
+  font-size: 1.2rem;
+}
+
+.slider-wrapper {
+  width: 100%;
+}
+
+.price-slider {
+  width: 100%;
+  height: 8px;
+  border-radius: 5px;
+  background: linear-gradient(
+    to right,
+    var(--primary-color),
+    var(--primary-dark)
+  );
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
+
+.price-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: white;
+  border: 3px solid var(--primary-color);
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.price-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 3px 10px rgba(46, 204, 113, 0.4);
+}
+
+.price-slider::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: white;
+  border: 3px solid var(--primary-color);
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.price-slider::-moz-range-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 3px 10px rgba(46, 204, 113, 0.4);
 }
 
 /* the signature section will be a footer with a simple design*/
 footer {
-    background-color: var(--dark-bg);
-    color: white;
-    text-align: center;
-    padding: 2rem;
-    margin-top: 3rem;
+  background-color: var(--dark-bg);
+  color: white;
+  text-align: center;
+  padding: 2rem;
+  margin-top: 3rem;
 }
 
 footer p {
-    font-size: 1rem;
+  font-size: 1rem;
 }
 
 /* now we have to make the site responsive */
 @media (max-width: 768px) {
-    .header-container {
-        padding: 1rem;
-    }
+  .header-container {
+    padding: 1rem;
+  }
 
-    .store-name {
-        font-size: 2rem;
-    }
+  .store-name {
+    font-size: 2rem;
+  }
 
-    nav {
-        gap: 0.5rem;
-    }
+  nav {
+    gap: 0.5rem;
+  }
 
-    .nav-btn {
-        padding: 0.6rem 1rem;
-        font-size: 0.9rem;
-    }
+  .nav-btn {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
 
-    .container {
-        padding: 1rem;
-    }
+  .container {
+    padding: 1rem;
+  }
 
-    h2 {
-        font-size: 2rem;
-    }
+  h2 {
+    font-size: 2rem;
+  }
 
-    .customer-form {
-        padding: 1.5rem;
-    }
+  .customer-form {
+    padding: 1.5rem;
+  }
 }
 
 @media (max-width: 480px) {
-    .store-name {
-        font-size: 1.5rem;
-    }
+  .store-name {
+    font-size: 1.5rem;
+  }
 
-    .nav-btn {
-        padding: 0.5rem 0.75rem;
-        font-size: 0.85rem;
-    }
+  .nav-btn {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
+  }
 }
 /* Products toolbar */
 .products-toolbar {
@@ -355,7 +438,7 @@ footer p {
   background: white;
   border-radius: 15px;
   overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
   display: flex;
   flex-direction: column;
   transition: transform 0.2s ease;
@@ -432,7 +515,6 @@ footer p {
   flex: 1;
 }
 
-
 .badge {
   display: inline-block;
   font-size: 0.8rem;
@@ -480,7 +562,7 @@ footer p {
 .cart-item {
   background: white;
   border-radius: 15px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
   padding: 1rem;
   display: grid;
   grid-template-columns: 90px 1fr auto;
@@ -523,7 +605,7 @@ footer p {
 .qty-center {
   display: flex;
   flex-direction: column;
-  align-items: center;   
+  align-items: center;
   gap: 0.2rem;
 }
 
@@ -549,7 +631,6 @@ footer p {
   padding: 0;
   font-size: 0.85rem;
   cursor: pointer;
-  
 }
 .cart-item-count {
   max-width: 900px;
@@ -565,22 +646,30 @@ footer p {
   padding: 1rem 0;
   display: flex;
   align-items: center;
-  justify-content: space-between; 
+  justify-content: space-between;
   border-top: 1px solid var(--border-color);
-  background: transparent; 
+  background: transparent;
   box-shadow: none;
   border-radius: 0;
 }
-/* clear item button/link */
+/* clear cart button */
 .clear-items-link {
-  background: none;
+  background-color: var(--accent-color);
   border: none;
-  padding: 0;
-  color: var(--success-color);
+  padding: 0.75rem 1.5rem;
+  color: white;
   font-size: 1rem;
-  text-decoration: underline;
+  border-radius: 25px;
   cursor: pointer;
-  font-weight: 600;
+  font-weight: 700;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3);
+}
+
+.clear-items-link:hover {
+  background-color: #c0392b;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(231, 76, 60, 0.4);
 }
 
 /* Right side total */
@@ -602,7 +691,6 @@ footer p {
   font-size: 1.1rem;
   color: var(--text-dark);
 }
-
 
 @media (max-width: 600px) {
   .cart-item {

@@ -30,6 +30,7 @@
                 <div class="customer-form">
                     <div class="form-group">
                         <h3>Dietary Restrictions</h3>
+                        <!-- we will use checkboxes for the dietary restrictions, and for the preferences-->
                         <div class="checkbox-group">
                             <label class="checkbox-label">
                                 <input type="checkbox" id="vegetarian" name="dietary">
@@ -39,24 +40,43 @@
                                 <input type="checkbox" id="gluten-free" name="dietary">
                                 <span>I have gluten intolerance (no wheat products)</span>
                             </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="lactose-free" name="dietary">
+                                <span>I am lactose intolerant (no dairy products)</span>
+                            </label>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <h3>Product Preferences</h3>
-                        <div class="radio-group">
-                            <label class="radio-label">
-                                <input type="radio" id="organic" name="preference" value="organic">
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="organic" name="preference">
                                 <span>I prefer organic products</span>
                             </label>
-                            <label class="radio-label">
-                                <input type="radio" id="non-organic" name="preference" value="non-organic">
-                                <span>I prefer non-organic products</span>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="local" name="preference">
+                                <span>I prefer locally sourced products</span>
                             </label>
-                            <label class="radio-label">
-                                <input type="radio" id="no-preference" name="preference" value="all" checked>
-                                <span>No preference</span>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="eco-friendly" name="preference">
+                                <span>I prefer eco-friendly packaging</span>
                             </label>
+                        </div>
+                    </div>
+
+                    <!-- the slider that allows users to select the price range of individual products-->
+                    <div class="form-group">
+                        <h3>Price Range of Each Product</h3>
+                        <div class="price-slider-container">
+                            <div class="price-labels">
+                                <span>$0</span>
+                                <span id="price-range-value">$0 - $25</span>
+                                <span>$25</span>
+                            </div>
+                            <div class="slider-wrapper">
+                                <input type="range" id="price-range" min="0" max="25" step="0.5" value="25" class="price-slider">
+                            </div>
                         </div>
                     </div>
 
@@ -78,9 +98,9 @@
         <section id="products-section" class="page-section">
             <div class="container">
                 <h2>Products</h2>
-                <p class="section-description"> Browse items matched to your preferences.</p>
+                <p class="section-description"> Browse items matched to your preferences (To change your preferences, go back to Custmer Info)</p>
 
-                <!--filters / Search -->
+                <!--filtering / searching option -->
                 <div class="products-toolbar">
                     <input id="product-search" class="search-input" type="text" placeholder="Search products"/>
                     <select id="category-filter" class="select-input">
@@ -111,12 +131,12 @@
         <section id="cart-section" class="page-section">
             <div class="container">
                 <h2>Your Cart</h2>
-                <p class="section-description">Review your items and total.</p>
+                <p class="section-description">Review your items and total price</p>
 
                 <div id="cart-content" class="cart-content"></div>
                 
                 <div class="cart-summary">
-                    <button id="clear-cart" class="clear-items-link" type="button">Clear items</button>
+                    <button id="clear-cart" class="clear-items-link" type="button">Clear Cart</button>
                     <div class="cart-total-right">
                         <span class="total-labe"l>Total :</span>
                         <span id="cart-total" class="total-amount">$0.00</span>
