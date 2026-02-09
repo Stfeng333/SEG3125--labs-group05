@@ -198,6 +198,9 @@ let products = [
     name: 'Banana',
     category: 'fruit',
     price: 0.5,
+    unit: 'kg',
+    quantity: '1kg',
+    rating: 4.5,
     image: 'imagess/banana1.png',
     organic: false,
     glutenFree: true,
@@ -211,6 +214,9 @@ let products = [
     name: 'Spinach',
     category: 'vegetable',
     price: 1.25,
+    unit: 'kg',
+    quantity: '500g',
+    rating: 4,
     image: 'imagess/spinach1.png',
     organic: true,
     glutenFree: true,
@@ -224,6 +230,9 @@ let products = [
     name: 'White Bread',
     category: 'bakery',
     price: 1.25,
+    unit: 'kg',
+    quantity: '675g',
+    rating: 3.5,
     image: 'imagess/whitebread1.png',
     organic: false,
     glutenFree: false,
@@ -237,6 +246,9 @@ let products = [
     name: 'Pasta (Wheat)',
     category: 'pantry',
     price: 2.75,
+    unit: 'kg',
+    quantity: '1kg',
+    rating: 4,
     image: 'imagess/pasta1.png',
     organic: false,
     glutenFree: false,
@@ -250,6 +262,9 @@ let products = [
     name: 'Canned Beans',
     category: 'pantry',
     price: 3.0,
+    unit: 'kg',
+    quantity: '800g',
+    rating: 3.5,
     image: 'imagess/cannedbeans1.png',
     organic: false,
     glutenFree: true,
@@ -263,6 +278,9 @@ let products = [
     name: 'Tofu',
     category: 'protein',
     price: 3.5,
+    unit: 'kg',
+    quantity: '400g',
+    rating: 4.5,
     image: 'imagess/tofu1.png',
     organic: true,
     glutenFree: true,
@@ -276,6 +294,9 @@ let products = [
     name: 'Greek Yogurt',
     category: 'dairy',
     price: 4.0,
+    unit: 'ml',
+    quantity: '750ml',
+    rating: 4,
     image: 'imagess/greekyogurt1.png',
     organic: false,
     glutenFree: true,
@@ -289,6 +310,9 @@ let products = [
     name: 'Milk',
     category: 'dairy',
     price: 4.5,
+    unit: 'ml',
+    quantity: '2L',
+    rating: 4.5,
     image: 'imagess/milk1.png',
     organic: false,
     glutenFree: true,
@@ -302,6 +326,9 @@ let products = [
     name: 'Free-Range Eggs',
     category: 'dairy',
     price: 5.0,
+    unit: 'kg',
+    quantity: '2kg',
+    rating: 4,
     image: 'imagess/eggs1.png',
     organic: true,
     glutenFree: true,
@@ -315,6 +342,9 @@ let products = [
     name: 'Quinoa',
     category: 'grain',
     price: 5.5,
+    unit: 'kg',
+    quantity: '1.5kg',
+    rating: 5,
     image: 'imagess/quinoa1.png',
     organic: true,
     glutenFree: true,
@@ -328,6 +358,9 @@ let products = [
     name: 'Cheddar Cheese',
     category: 'dairy',
     price: 6.0,
+    unit: 'kg',
+    quantity: '500g',
+    rating: 4.5,
     image: 'imagess/cheddarcheese1.png',
     organic: false,
     glutenFree: true,
@@ -341,6 +374,9 @@ let products = [
     name: 'Chicken Thighs',
     category: 'meat',
     price: 7.5,
+    unit: 'kg',
+    quantity: '1kg',
+    rating: 4,
     image: 'imagess/chickenthighs1.png',
     organic: false,
     glutenFree: true,
@@ -354,6 +390,9 @@ let products = [
     name: 'Almond Butter',
     category: 'pantry',
     price: 8.0,
+    unit: 'kg',
+    quantity: '350g',
+    rating: 5,
     image: 'imagess/almondbutter1.png',
     organic: true,
     glutenFree: true,
@@ -367,6 +406,9 @@ let products = [
     name: 'Ground Beef',
     category: 'meat',
     price: 9.0,
+    unit: 'kg',
+    quantity: '750g',
+    rating: 4,
     image: 'imagess/groundbeef1.png',
     organic: false,
     glutenFree: true,
@@ -380,6 +422,9 @@ let products = [
     name: 'Frozen Pizza',
     category: 'frozen',
     price: 10.0,
+    unit: 'kg',
+    quantity: '600g',
+    rating: 3.5,
     image: 'imagess/frozenpizza1.png',
     organic: false,
     glutenFree: false,
@@ -393,6 +438,9 @@ let products = [
     name: 'Chicken Breast',
     category: 'meat',
     price: 11.5,
+    unit: 'kg',
+    quantity: '1.2kg',
+    rating: 5,
     image: 'imagess/chickenbreast1.png',
     organic: true,
     glutenFree: true,
@@ -406,6 +454,9 @@ let products = [
     name: 'Atlantic Salmon',
     category: 'seafood',
     price: 13.0,
+    unit: 'kg',
+    quantity: '800g',
+    rating: 4.5,
     image: 'imagess/salmon1.png',
     organic: false,
     glutenFree: true,
@@ -419,6 +470,9 @@ let products = [
     name: 'Honey',
     category: 'pantry',
     price: 14.0,
+    unit: 'ml',
+    quantity: '500ml',
+    rating: 5,
     image: 'imagess/honey1.png',
     organic: true,
     glutenFree: true,
@@ -432,6 +486,9 @@ let products = [
     name: 'Ribeye Steak',
     category: 'meat',
     price: 18.0,
+    unit: 'kg',
+    quantity: '300g',
+    rating: 5,
     image: 'imagess/steak1.png',
     organic: false,
     glutenFree: true,
@@ -445,6 +502,9 @@ let products = [
     name: 'Olive Oil',
     category: 'pantry',
     price: 22.0,
+    unit: 'ml',
+    quantity: '1L',
+    rating: 4.5,
     image: 'imagess/oliveoil1.png',
     organic: true,
     glutenFree: true,
@@ -550,7 +610,8 @@ function productCardHTML(p) {
         <img class="product-image" src="${p.image}" alt="${p.name}">
       </button>
       <div class="product-body">
-        <div class="product-name">${p.name}</div>
+        <div class="product-name">${p.name} ${p.quantity}</div>
+        <div class="product-rating">${renderStars(p.rating)}</div>
 
         <div class="product-meta">
           <div>${organicBadge} ${gfBadge}</div>
@@ -560,6 +621,28 @@ function productCardHTML(p) {
         <button class="btn-add-cart" id="add-${p.id}" type="button">Add to cart</button>
       </div>
     </div> `
+}
+
+// Render star rating
+function renderStars(rating) {
+  const fullStars = Math.floor(rating)
+  const hasHalfStar = rating % 1 !== 0
+  let stars = ''
+  
+  for (let i = 0; i < fullStars; i++) {
+    stars += '★'
+  }
+  
+  if (hasHalfStar) {
+    stars += '☆'
+  }
+  
+  const emptyStars = 5 - Math.ceil(rating)
+  for (let i = 0; i < emptyStars; i++) {
+    stars += '☆'
+  }
+  
+  return stars
 }
 
 // to render a page for product
@@ -581,7 +664,8 @@ function openProductPage(productId) {
         <div class="product-detail-info">
           <button id="back-to-products" type="button">← Back to products</button>
 
-          <h2>${p.name}</h2>
+          <h2>${p.name} ${p.quantity}</h2>
+          <div class="product-rating" style="font-size: 1.5rem; margin: 0.5rem 0;">${renderStars(p.rating)}</div>
           <p><strong>Price:</strong> $${p.price.toFixed(2)}</p>
           <p><strong>Category:</strong> ${p.category}</p>
           <p><strong>Organic:</strong> ${p.organic ? 'Yes' : 'No'}</p>
@@ -624,6 +708,12 @@ function addToCart(productId) {
   else cart.push({ productId, qty: 1 })
 
   updateCartUI()
+  
+  // Show toast notification
+  const product = products.find((p) => p.id === productId)
+  if (product) {
+    showToast(`${product.name} added to your cart`)
+  }
 }
 
 function updateCartCount() {
@@ -693,7 +783,7 @@ function renderCart() {
   const tipPercent = parseFloat(
     document.querySelector('input[name="tip"]:checked')?.value || 0
   );
-  const finalTotal = total*(1 + tipPercent)
+  const finalTotal = total * (1 + tipPercent / 100)
   cartTotalEl.textContent = `$${finalTotal.toFixed(2)}`
 
   // hook buttons
@@ -741,4 +831,16 @@ function updateCartUI() {
   saveCart()
   updateCartCount()
   renderCart()
+}
+
+// Toast notification function
+function showToast(message) {
+  const toast = document.createElement('div')
+  toast.className = 'toast'
+  toast.textContent = message
+  document.body.appendChild(toast)
+  
+  setTimeout(() => {
+    toast.remove()
+  }, 3000)
 }
