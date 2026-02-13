@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cycler Forever - where you go to keep the wheels spinning</title>
+    
+    <!-- link to Bootstrap5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- link to Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <!-- customization using CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- header part-->
+    <header class="bg-dark text-white py-3">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-3">
+                    <img src="photoss/logo.jpg" alt="Cycler Forever Logo" class="img-fluid" style="max-height: 80px;">
+                </div>
+                <div class="col-md-6">
+                    <h1 class="h3 mb-0">Cycler Forever</h1>
+                    <p class="mb-0 small">Bicycle Repair & Maintenance</p>
+                </div>
+                <div class="col-md-3 text-md-end">
+                    <p class="mb-0"><i class="bi bi-geo-alt-fill"></i> 123 Bike Lane, Ottawa, ON</p>
+                    <p class="mb-0"><i class="bi bi-clock-fill"></i> Mon-Sat: 9AM-6PM</p>
+                    <p class="mb-0"><i class="bi bi-telephone-fill"></i> (613) 555-BIKE</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- content part -->
+    <main class="container my-5">
+        <!-- we're using a div for the progress bar of course-->
+        <div class="row mb-4">
+            <div class="col">
+                <div class="progress" style="height: 30px;">
+                    <div id="progressBar" class="progress-bar progress-bar-striped progress-bar-animated" 
+                         role="progressbar" 
+                         style="width: 33.33%;" 
+                         aria-valuenow="33.33" 
+                         aria-valuemin="0" 
+                         aria-valuemax="100">
+                        Step 1: Select the service you need
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between mt-2 small text-muted">
+                    <span id="step1Label" class="fw-bold text-primary">1. Choose Service</span>
+                    <span id="step2Label">2. Select Staff</span>
+                    <!-- HERE IS WHERE YOU GUYS CAN WORK ON STEP 3 TO 5...-->
+                    <span id="step3Label">3. Schedule & Details</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- service selection part -->
+        <div id="step1" class="step-section">
+            <h2 class="mb-4">
+                <i class="bi bi-bicycle"></i> Step 1: Choose Your Service
+            </h2>
+            <p class="lead mb-4">Select the repair or maintenance service you need. Each service includes a free diagnostic check.</p>
+            
+            <div class="row g-4" id="serviceCards">
+                <!-- each card will represent one service, functionality made with JavaScript-->
+            </div>
+
+            <div class="mt-4 p-3 bg-light rounded" id="serviceSelectionSummary" style="display: none;">
+                <h5><i class="bi bi-check-circle-fill text-success"></i> You selected:</h5>
+                <p class="mb-0" id="selectedServiceText"></p>
+            </div>
+
+            <div class="mt-4">
+                <button id="nextToStep2" class="btn btn-primary btn-lg" disabled>
+                    Next: Select Staff <i class="bi bi-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- next up is selecting the staff for the service -->
+        <div id="step2" class="step-section" style="display: none;">
+            <h2 class="mb-4">
+                <i class="bi bi-people-fill"></i> Step 2: Choose Your Technician
+            </h2>
+            <p class="lead mb-4">Select one of our certified technicians based on their expertise and availability.</p>
+            
+            <div class="row g-4" id="staffCards">
+                <!-- each staff memeber will also have a card -->
+            </div>
+
+            <div class="mt-4 p-3 bg-light rounded" id="staffSelectionSummary" style="display: none;">
+                <h5><i class="bi bi-check-circle-fill text-success"></i> Your booking summary:</h5>
+                <ul class="mb-0">
+                    <li><strong>Service:</strong> <span id="summaryService"></span></li>
+                    <li><strong>Technician:</strong> <span id="summaryStaff"></span></li>
+                    <li><strong>Price:</strong> <span id="summaryPrice"></span></li>
+                    <li><strong>Duration:</strong> <span id="summaryDuration"></span></li>
+                </ul>
+            </div>
+
+            <div class="mt-4 d-flex gap-2">
+                <button id="backToStep1" class="btn btn-secondary btn-lg">
+                    <i class="bi bi-arrow-left"></i> Back to Services
+                </button>
+                <button id="nextToStep3" class="btn btn-primary btn-lg" disabled>
+                    Continue to Scheduling <i class="bi bi-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Step 3: HERE IS A TEMPLATE IF YOU WANNA USE IT, IF NOT THEN CREATE YOUR OWN AS YOU PLEASE -->
+        <div id="step3" class="step-section" style="display: none;">
+            <h2 class="mb-4">
+                <i class="bi bi-calendar-check"></i> Step 3: Schedule & Contact Information
+            </h2>
+            <div class="alert alert-info">
+                <h5><i class="bi bi-info-circle"></i> For Development Team:</h5>
+                <p class="mb-2">This section will include:</p>
+                <ul class="mb-0">
+                    <li>Date & time picker (prevent past dates)</li>
+                    <li>Personal information form (name, email/phone with labels)</li>
+                    <li>Optional notes field</li>
+                    <li>Form validation with inline error messages</li>
+                    <li>Submit button with loading state</li>
+                    <li>Confirmation page with reference number</li>
+                </ul>
+            </div>
+            
+            <!-- Data passed from previous steps available in JavaScript-->
+            <div class="mt-4">
+                <button id="backToStep2" class="btn btn-secondary btn-lg">
+                    <i class="bi bi-arrow-left"></i> Back to Staff Selection
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- footer section (missing the signature of the team) -->
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>Cycler Forever</h5>
+                    <p class="small">Let us keep your bicycle wheel spinning until the world ends</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contact Us</h5>
+                    <p class="small mb-0">123 Biking Lane, Ottawa, ON K2A 0A4</p>
+                    <p class="small mb-0">Phone: (613) 555 (2453)</p>
+                    <p class="small mb-0">Email: info@cyclerForever.ca</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Policies</h5>
+                    <p class="small mb-0">
+                        <i class="bi bi-check-circle"></i> Free cancellation up to 24 hours before appointment<br>
+                        <i class="bi bi-check-circle"></i> Easy rescheduling available<br>
+                        <i class="bi bi-check-circle"></i> Repairs come with a 15-day warranty
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap5 JS bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- and custom JavaScript -->
+    <script src="scripts.js"></script>
+</body>
+</html>

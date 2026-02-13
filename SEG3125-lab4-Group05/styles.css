@@ -1,0 +1,270 @@
+/*root variables for yellow & grey theme */
+:root {
+    --primary-yellow: #FFC107;
+    --primary-yellow-dark: #FFA000;
+    --primary-yellow-light: #FFECB3;
+    --grey-dark: #424242;
+    --grey-medium: #757575;
+    --grey-light: #E0E0E0;
+    --grey-lighter: #F5F5F5;
+    --white: #FFFFFF;
+    --success-green: #4CAF50;
+    --error-red: #F44336;
+}
+
+/*global styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--grey-lighter);
+    color: var(--grey-dark);
+}
+
+/*I will override Bootstrap primary color */
+.btn-primary {
+    background-color: var(--primary-yellow);
+    border-color: var(--primary-yellow);
+    color: var(--grey-dark);
+    font-weight: 600;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: var(--primary-yellow-dark);
+    border-color: var(--primary-yellow-dark);
+    color: var(--grey-dark);
+}
+
+.btn-primary:disabled {
+    background-color: var(--grey-light);
+    border-color: var(--grey-light);
+    color: var(--grey-medium);
+    cursor: not-allowed;
+}
+
+.btn-secondary {
+    background-color: var(--grey-medium);
+    border-color: var(--grey-medium);
+    color: var(--white);
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus {
+    background-color: var(--grey-dark);
+    border-color: var(--grey-dark);
+}
+
+/*styling progress bar */
+.progress {
+    background-color: var(--grey-light);
+    border-radius: 15px;
+}
+
+.progress-bar {
+    background-color: var(--primary-yellow);
+    color: var(--grey-dark);
+    font-weight: bold;
+}
+
+/*service and staff cards*/
+.service-card,
+.staff-card {
+    border: 2px solid var(--grey-light);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    background-color: var(--white);
+    height: 100%;
+}
+
+.service-card:hover,
+.staff-card:hover {
+    border-color: var(--primary-yellow);
+    box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3);
+    transform: translateY(-5px);
+}
+
+.service-card.selected,
+.staff-card.selected {
+    border-color: var(--primary-yellow);
+    background-color: var(--primary-yellow-light);
+    box-shadow: 0 6px 16px rgba(255, 193, 7, 0.4);
+}
+
+.service-card .card-img-top,
+.staff-card .card-img-top {
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 2px solid var(--grey-light);
+}
+
+.card-title {
+    color: var(--grey-dark);
+    font-weight: bold;
+}
+
+.price-badge {
+    background-color: var(--primary-yellow);
+    color: var(--grey-dark);
+    font-weight: bold;
+    padding: 8px 16px;
+    border-radius: 20px;
+    display: inline-block;
+}
+
+.duration-badge {
+    background-color: var(--grey-light);
+    color: var(--grey-dark);
+    padding: 6px 12px;
+    border-radius: 15px;
+    font-size: 0.9rem;
+}
+
+/*staff expertise certification badges */
+.expertise-badge {
+    background-color: var(--primary-yellow-light);
+    color: var(--grey-dark);
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    margin: 2px;
+    display: inline-block;
+}
+
+/*text colors */
+.text-primary {
+    color: var(--primary-yellow-dark) !important;
+}
+
+/*focus states help us to ensure accessibility for keyboard users*/
+.service-card:focus,
+.staff-card:focus,
+.btn:focus {
+    outline: 3px solid var(--primary-yellow);
+    outline-offset: 2px;
+}
+
+/*labels*/
+#step1Label,
+#step2Label,
+#step3Label {
+    transition: all 0.3s ease;
+}
+
+.step-active {
+    color: var(--primary-yellow-dark) !important;
+    font-weight: bold !important;
+}
+
+/*icons used in the cards*/
+.card-body i {
+    color: var(--primary-yellow-dark);
+}
+
+/*styling the Alert */
+.alert-info {
+    background-color: var(--primary-yellow-light);
+    border-color: var(--primary-yellow);
+    color: var(--grey-dark);
+}
+
+/*styling the tooltip*/
+.tooltip-inner {
+    background-color: var(--grey-dark);
+    color: var(--white);
+}
+
+.tooltip .arrow::before {
+    border-top-color: var(--grey-dark);
+}
+
+/*let's make some changes to the cards on smaller screens to ensure they look good*/
+@media (max-width: 768px) {
+    .service-card .card-img-top,
+    .staff-card .card-img-top {
+        height: 150px;
+    }
+    
+    header .col-md-3,
+    header .col-md-6,
+    header .col-md-3 {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+}
+
+/*loading state*/
+.btn-loading {
+    position: relative;
+    color: transparent;
+}
+
+.btn-loading::after {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 50%;
+    left: 50%;
+    margin-left: -8px;
+    margin-top: -8px;
+    border: 2px solid var(--grey-dark);
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spinner 0.6s linear infinite;
+}
+
+@keyframes spinner {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/*staff initials display */
+.staff-initials {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: var(--primary-yellow);
+    color: var(--grey-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: bold;
+    border: 3px solid var(--primary-yellow-dark);
+    margin: 0 auto 10px;
+}
+
+/*details of service*/
+.service-details {
+    font-size: 0.9rem;
+    color: var(--grey-medium);
+}
+
+.service-details li {
+    padding: 4px 0;
+}
+
+/*putting a grey background for smooth look*/
+.bg-dark {
+    background-color: var(--grey-dark) !important;
+}
+
+/*success indicator*/
+.bi-check-circle-fill {
+    color: var(--success-green);
+}
+
+/*and card selection indicator*/
+.card-check {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 2rem;
+    color: var(--success-green);
+    display: none;
+}
+
+.selected .card-check {
+    display: block;
+}
