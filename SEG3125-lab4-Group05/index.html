@@ -114,29 +114,97 @@
             </div>
         </div>
 
-        <!-- Step 3: HERE IS A TEMPLATE IF YOU WANNA USE IT, IF NOT THEN CREATE YOUR OWN AS YOU PLEASE -->
-        <div id="step3" class="step-section" style="display: none;">
+        <!-- next up is selecting the time/date -->
+          <div id="step3" class="step-section" style="display: none;">
             <h2 class="mb-4">
-                <i class="bi bi-calendar-check"></i> Step 3: Schedule & Contact Information
+                <i class="bi bi-calendar-check"></i> Step 3: Choose Date & Time
             </h2>
-            <div class="alert alert-info">
-                <h5><i class="bi bi-info-circle"></i> For Development Team:</h5>
-                <p class="mb-2">This section will include:</p>
-                <ul class="mb-0">
-                    <li>Date & time picker (prevent past dates)</li>
-                    <li>Personal information form (name, email/phone with labels)</li>
-                    <li>Optional notes field</li>
-                    <li>Form validation with inline error messages</li>
-                    <li>Submit button with loading state</li>
-                    <li>Confirmation page with reference number</li>
-                </ul>
-            </div>
-            
-            <!-- Data passed from previous steps available in JavaScript-->
-            <div class="mt-4">
-                <button id="backToStep2" class="btn btn-secondary btn-lg">
-                    <i class="bi bi-arrow-left"></i> Back to Staff Selection
-                </button>
+            <div class="row g-4">
+                <div class="col-12 col-lg-7">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title mb-3">Pick a date</h5>
+                            
+                            <!-- Calendar UI -->
+                             <div class="dropdown-menu d-block position-static p-2 mx-auto shadow rounded-3 w-340px">
+                                <div class="d-grid gap-1">
+                                    <div class="cal">
+                                        <div class="cal-month align-items-center">
+                                            <button class="btn cal-btn" type="button" id="calPrev" aria-label="Previous month">
+                                                <i class="bi bi-chevron-left"></i>
+                                            </button>
+                                            <strong class="cal-month-name" id="calMonthLabel"></strong>
+                                            <button class="btn cal-btn" type="button" id="calNext" aria-label="Next month">
+                                                <i class="bi bi-chevron-right"></i>
+                                            </button>
+                                        </div>
+                                        <div class="cal-weekdays text-body-secondary">
+                                            <div class="cal-weekday">Sun</div>
+                                            <div class="cal-weekday">Mon</div>
+                                            <div class="cal-weekday">Tue</div>
+                                            <div class="cal-weekday">Wed</div>
+                                            <div class="cal-weekday">Thu</div>
+                                            <div class="cal-weekday">Fri</div>
+                                            <div class="cal-weekday">Sat</div>
+                                        </div>
+                                        <div class="cal-days" id="calDays"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-3 small text-muted" id="selectedDateText">
+                                No date selected (Technician availability will apply)
+                            </div>
+                            <label class="form-label mt-3" for="timeSelect">Pick a time</label>
+                            <select class="form-select" id="timeSelect" disabled>
+                                <option value="" selected disabled>Select a time</option>
+                            </select>
+                            <div class="mt-3 p-2 bg-light rounded small">
+                                <div class="fw-semibold">Selected:</div>
+                                <div id="scheduleSummary">No date/time chosen yet.</div>
+                            </div>
+                            
+                            <div class="mt-4 d-flex gap-2">
+                                <button id="backToStep2" class="btn btn-secondary btn-lg" type="button">
+                                    <i class="bi bi-arrow-left"></i> Back to Staff Selection
+                                </button>
+                                
+                                
+                                <button id="nextToStep4" class="btn btn-primary btn-lg" type="button" disabled>
+                                    Next: Contact Info <i class="bi bi-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-12 col-lg-5">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title mb-3">Reschedule & Cancellation</h5>
+                            <div class="alert alert-warning mb-0">
+                                <ul class="mb-0 ps-3">
+                                    <li>Free changes up to 24 hours before the appointment.</li>
+                                    <li>Changes within 24 hours may incur a late fee.</li>
+                                    <li>No-shows may require a deposit for future bookings.</li>
+                                </ul>
+                            </div>
+                            <div class="small text-muted mt-2">
+                                Dates shown depend on the technician you selected.
+                            </div>
+                            <div class="mt-4 p-3 bg-light rounded" id="step3BookingSummary" style="display: none;">
+                                <h5><i class="bi bi-check-circle-fill text-success"></i> Your booking summary:</h5>
+                                <ul class="mb-0">
+                                    <li><strong>Service:</strong> <span id="step3SummaryService"></span></li>
+                                    <li><strong>Technician:</strong> <span id="step3SummaryStaff"></span></li>
+                                    <li><strong>Price:</strong> <span id="step3SummaryPrice"></span></li>
+                                    <li><strong>Duration:</strong> <span id="step3SummaryDuration"></span></li>
+                                    <li><strong>Date:</strong> <span id="step3SummaryDate"></span></li>
+                                    <li><strong>Time:</strong> <span id="step3SummaryTime"></span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
