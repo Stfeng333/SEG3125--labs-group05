@@ -117,6 +117,14 @@ const staff = [
     }
 ];
 
+// contact information for step 4
+let contactInfo = {
+    firstName:"",
+    lastName:"",
+    email:"",
+    phone:"",
+    notes:""
+};
 
 // global state is set to keep track of selected service, staff, and current step in the booking process
 let selectedService = null;
@@ -260,6 +268,7 @@ function createStaffCard(member) {
     
     return col;
 }
+
 /*initializing all event listeners*/
 function initializeEventListeners() {
     //service card selection
@@ -273,8 +282,96 @@ function initializeEventListeners() {
     //navigation buttons
     document.getElementById('nextToStep2').addEventListener('click', goToStep2);
     document.getElementById('nextToStep3').addEventListener('click', goToStep3);
+    document.getElementById('nextToStep4').addEventListener('click', goToStep4);
+    document.getElementById('nextToStep5').addEventListener('click', goToStep5);
     document.getElementById('backToStep1').addEventListener('click', goToStep1);
     document.getElementById('backToStep2').addEventListener('click', goToStep2);
+    document.getElementById('backToStep3').addEventListener('click', goToStep3);
+    document.getElementById('backToStep4').addEventListener('click', goToStep4);
+
+    document.getElementById('submitBooking').addEventListener('click', submitBooking);
+
+    // step 4 validation
+    hookContactValidation();
+}
+
+function hookContactValidation(){
+    const form = document.getElementById('step4');
+    const nextBtn = document.getElementById('nextToStep5'); 
+
+    const first = document.getElementById('contactFirstName');
+    const last = document.getElementById('contactLastName');
+    const email = document.getElementById('contactEmail');
+    const phone = document.getElementById('contactPhone');
+    const notes = document.getElementById('contactNotes');
+
+    function validate(){
+        const firstValid = first.value.trim().length > 0;
+        const lastValid = last.value.trim().length > 0;
+        const emailValid = (email.value.trim().length > 0) && email.checkValidity();
+        const phoneValid = phone.value.trim().length == 10;
+
+        const overallValid = firstValid && lastValid && (emailValid || phoneValid);
+
+        nextBtn.disabled = !overallValid;
+
+        if (overallValid) {
+            contactInfo = {
+                firstName: first.value.trim(),
+                lastName: last.value.trim(),
+                email: email.value.trim(),
+                phone: phone.value.trim(),
+                notes: notes ? notes.value.trim() : ""
+            };
+        }
+    }
+
+    // validate live
+    [first, last, email, phone, notes].forEach(el => {
+        if (!el) return;
+        el.addEventListener('input', validate);
+        el.addEventListener('change', validate);
+    });
+
+    validate();
+}
+
+// for step 5 
+function populateFinalSummary(){
+    const setText = (id, txt) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = txt ?? "";
+    };
+
+    setText('finalService', selectedService ? selectedService.name : "");
+    setText('finalStaff', selectedStaff ? `${selectedStaff.name} (${selectedStaff.role})` : "");
+    setText('finalPrice', selectedService ? `$${selectedService.price}` : "");
+    setText('finalDuration', selectedService ? selectedService.duration : "");
+
+    setText('finalDate', bookingDate ? ymd(bookingDate) : "");
+    setText('finalTime', bookingTime || "");
+
+    setText('finalName', `${contactInfo.firstName} ${contactInfo.lastName}`.trim());
+    setText('finalEmail', contactInfo.email || "N/A");
+    setText('finalPhone', contactInfo.phone || "N/A");
+}
+
+function submitBooking() {
+    const box = document.getElementById('submitResult');
+    if (!box) return;
+
+    box.style.display = 'block';
+    box.className = 'alert alert-success';
+
+    const when = bookingDate && bookingTime ? `${ymd(bookingDate)} at ${bookingTime}` : "your selected time";
+
+    box.innerHTML = `
+        <strong>Booking confirmed.</strong><br>
+        Appointment: ${when}<br>
+        Service: ${selectedService ? selectedService.name : ""}<br>
+        Technician: ${selectedStaff ? selectedStaff.name : ""}<br>
+        Contact: ${contactInfo.email || contactInfo.phone}
+    `;
 }
 
 /**
@@ -424,22 +521,52 @@ function goToStep3() {
      */
 }
 
+function goToStep4() {
+    if (!bookingDate || !bookingTime) {
+        alert('Please choose a date and time first.');
+        return;
+    }
+
+    currentStep = 4;
+    updateStepDisplay();
+    updateProgressBar();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function goToStep5() {
+    const nextBtn = document.getElementById('nextToStep5');
+    if (nextBtn && nextBtn.disabled) {
+        alert('Please enter your contact info (full name + email or phone).');
+        return;
+    }
+
+    currentStep = 5;
+    updateStepDisplay();
+    updateProgressBar();
+    populateFinalSummary();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
 /*update which step section is visible*/
 function updateStepDisplay() {
     document.getElementById('step1').style.display = currentStep === 1 ? 'block' : 'none';
     document.getElementById('step2').style.display = currentStep === 2 ? 'block' : 'none';
     document.getElementById('step3').style.display = currentStep === 3 ? 'block' : 'none';
+    document.getElementById('step4').style.display = currentStep === 4 ? 'block' : 'none';
+    document.getElementById('step5').style.display = currentStep === 5 ? 'block' : 'none';
     
     // Update step labels
     document.getElementById('step1Label').className = currentStep === 1 ? 'step-active' : '';
     document.getElementById('step2Label').className = currentStep === 2 ? 'step-active' : '';
     document.getElementById('step3Label').className = currentStep === 3 ? 'step-active' : '';
+    document.getElementById('step4Label').className = currentStep === 4 ? 'step-active' : '';
+    document.getElementById('step5Label').className = currentStep === 5 ? 'step-active' : '';
 }
 
 /*Update progress bar based on current step*/
 function updateProgressBar() {
     const progressBar = document.getElementById('progressBar');
-    const percentage = (currentStep / 3) * 100;
+    const percentage = (currentStep / 5) * 100;
     
     progressBar.style.width = percentage + '%';
     progressBar.setAttribute('aria-valuenow', percentage);
@@ -447,7 +574,9 @@ function updateProgressBar() {
     const stepTexts = [
         'Step 1: Select Service',
         'Step 2: Select Staff',
-        'Step 3: Schedule & Details'
+        'Step 3: Schedule & Details',
+        'Step 4: Enter Contact',
+        'Step 5: Confirm'
     ];
     
     progressBar.textContent = stepTexts[currentStep - 1];
