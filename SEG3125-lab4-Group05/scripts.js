@@ -43,7 +43,7 @@ const services = [
         id: 'replacements',
         name: 'Replacements',
         price: '100-200',
-        duration: 'depends on required parts',
+        duration: 'depends (1-7 days)',
         description: 'Part replacement and installation service',
         image: 'photoss/replacements.jpg',
         included: ['Old part removal', 'New part installation', 'Compatibility check', 'Functional testing']
