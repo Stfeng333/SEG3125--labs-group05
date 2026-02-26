@@ -36,6 +36,12 @@
         </div>
     </header>
 
+    <!-- adding the toast notification container -->
+    <div id="toastContainer" aria-live="assertive" aria-atomic="false" role="status"></div>
+    
+    <!-- using ARIA live region for screen reader announcements -->
+    <div id="ariaLive" aria-live="polite" aria-atomic="true" class="visually-hidden"></div>
+
     <!-- content part -->
     <main class="container my-5">
         <!-- we're using a div for the progress bar of course-->
@@ -82,6 +88,7 @@
                 <button id="nextToStep2" class="btn btn-primary btn-lg" disabled>
                     Next: Select Staff <i class="bi bi-arrow-right"></i>
                 </button>
+                <div class="btn-hint" id="hint-nextToStep2">Please select a service above to continue.</div>
             </div>
         </div>
 
@@ -113,6 +120,7 @@
                 <button id="nextToStep3" class="btn btn-primary btn-lg" disabled>
                     Continue to Scheduling <i class="bi bi-arrow-right"></i>
                 </button>
+                <div class="btn-hint" id="hint-nextToStep3">Please select a technician above to continue.</div>
             </div>
         </div>
 
@@ -174,6 +182,7 @@
                                 <button id="nextToStep4" class="btn btn-primary btn-lg" type="button" disabled>
                                     Next: Contact Info <i class="bi bi-arrow-right"></i>
                                 </button>
+                                <div class="btn-hint" id="hint-nextToStep4">Select a date and time to continue.</div>
                             </div>
                         </div>
                     </div>
@@ -217,31 +226,33 @@
             </h2>
             <p class="lead mb-4">Enter your contact information here. You must provide email or phone</p>
             
-            <div class="col-md-6">
-                <label for="contactFirstName" class="form-label">First Name</label>
-                <input type="text" class="form-control" id="contactFirstName" required>
+            <div class="col-md-6 mb-3">
+                <label for="contactFirstName" class="form-label">First Name <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="contactFirstName" required autocomplete="given-name" placeholder="e.g. John">
+                <div class="invalid-feedback" id="feedback-firstName"></div>
             </div>
 
-            <div class="col-md-6">
-                <label for="contactLastName" class="form-label">Last Name</label>
-                <input type="text" class="form-control" id="contactLastName" required>
+            <div class="col-md-6 mb-3">
+                <label for="contactLastName" class="form-label">Last Name <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="contactLastName" required autocomplete="family-name" placeholder="e.g. Smith">
+                <div class="invalid-feedback" id="feedback-lastName"></div>
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-6 mb-3">
                 <label for="contactEmail" class="form-label">
-                    Email
+                    Email <span class="field-required-note">(required if no phone)</span>
                 </label>
-                <input type="email" class="form-control" id="contactEmail">
+                <input type="email" class="form-control" id="contactEmail" autocomplete="email" placeholder="e.g. john@example.com">
+                <div class="invalid-feedback" id="feedback-email"></div>
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-6 mb-3">
                 <label for="contactPhone" class="form-label">
-                    Phone Number
+                    Phone Number <span class="field-required-note">(required if no email)</span>
                 </label>
-                <input type="tel" class="form-control" id="contactPhone">
-                <div id="passwordHelpInline" class="form-text">
-                    Must not include area code, brackets, or dashes.
-                </div>
+                <input type="tel" class="form-control" id="contactPhone" inputmode="numeric" autocomplete="tel" placeholder="e.g. 6135552453" maxlength="10">
+                <div class="form-text">10 digits only — no spaces, brackets, or dashes.</div>
+                <div class="invalid-feedback" id="feedback-phone"></div>
             </div>
 
             <div class="col-12">
@@ -251,13 +262,15 @@
                 <textarea class="form-control" id="contactNotes" rows="3"></textarea>
             </div>
 
-            <div class="mt-4 d-flex gap-2">
+            <div class="mt-3 mb-2" id="contactFormProgress"></div>
+            <div class="mt-4 d-flex gap-2 flex-wrap">
                 <button id="backToStep3" class="btn btn-secondary btn-lg">
                     <i class="bi bi-arrow-left"></i> Back to Scheduling
                 </button>
                 <button id="nextToStep5" class="btn btn-primary btn-lg" disabled>
                     Continue to Submit <i class="bi bi-arrow-right"></i>
                 </button>
+                <div class="btn-hint" id="hint-nextToStep5">Fill in your name and at least one contact method.</div>
             </div>
         </div>
 
