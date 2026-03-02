@@ -546,3 +546,18 @@ button:disabled + .btn-hint {
 #step4 .col-md-6 {
     margin-bottom: 0;
 }
+
+/* payment icons */
+.payment-icons i {
+  font-size: 1.4rem;
+  margin-right: 10px;
+  color: var(--grey-medium);
+}
+
+.payment-icons i:last-child {
+  margin-right: 0;
+}
+
+.input-group-text i {
+  color: var(--primary-yellow-dark);
+}

@@ -296,6 +296,76 @@
                     <li><strong>Phone:</strong> <span id="finalPhone"></span></li>
                 </ul>
 
+                <!-- payments -->
+                <hr class="my-4">
+
+                <h5 class="card-title mb-3">
+                <i class="bi bi-credit-card-2-front"></i> Payment Details
+                </h5>
+
+                <div class="payment-icons mb-2" aria-label="Accepted payment methods">
+                <i class="bi bi-credit-card" title="Credit card" aria-hidden="true"></i>
+                <i class="bi bi-credit-card-2-front" title="Card" aria-hidden="true"></i>
+                <i class="bi bi-credit-card-2-back" title="Card" aria-hidden="true"></i>
+                <i class="bi bi-shield-lock" title="Secure" aria-hidden="true"></i>
+                </div>
+
+                <div class="row g-3">
+                <div class="col-12">
+                    <label for="cardName" class="form-label">Name on card <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-person-vcard"></i></span>
+                    <input type="text" class="form-control" id="cardName" autocomplete="cc-name" placeholder="e.g. John Smith">
+                    </div>
+                    <div class="invalid-feedback" id="feedback-cardName"></div>
+                </div>
+
+                <div class="col-12">
+                    <label for="cardNumber" class="form-label">Card number <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-credit-card"></i></span>
+                    <input type="text" class="form-control" id="cardNumber"
+                            inputmode="numeric" autocomplete="cc-number"
+                            placeholder="1234 5678 9012 3456" maxlength="19">
+                    </div>
+                    <div class="invalid-feedback" id="feedback-cardNumber"></div>
+                </div>
+
+                <div class="col-6 col-md-4">
+                    <label for="cardExp" class="form-label">Expiry (MM/YY) <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-calendar2-check"></i></span>
+                    <input type="text" class="form-control" id="cardExp"
+                            inputmode="numeric" autocomplete="cc-exp"
+                            placeholder="MM/YY" maxlength="5">
+                    </div>
+                    <div class="invalid-feedback" id="feedback-cardExp"></div>
+                </div>
+
+                <div class="col-6 col-md-3">
+                    <label for="cardCvv" class="form-label">CVV <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-shield-lock"></i></span>
+                    <input type="password" class="form-control" id="cardCvv"
+                            inputmode="numeric" autocomplete="cc-csc"
+                            placeholder="123" maxlength="4">
+                    </div>
+                    <div class="invalid-feedback" id="feedback-cardCvv"></div>
+                </div>
+
+                <div class="col-12 col-md-5">
+                    <label for="billingPostal" class="form-label">Billing postal code <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-geo-alt"></i></span>
+                    <input type="text" class="form-control" id="billingPostal"
+                            autocomplete="postal-code" placeholder="e.g. K1A0B1" maxlength="7">
+                    </div>
+                    <div class="invalid-feedback" id="feedback-billingPostal"></div>
+                </div>
+                </div>
+
+                <div class="mt-3 mb-2" id="paymentFormProgress"></div>
+
                 <div class="alert alert-info small mb-0">
                     Submitting will confirm your appointment.
                 </div>

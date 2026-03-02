@@ -123,6 +123,14 @@ let contactInfo = {
     notes:""
 };
 
+// payment info for step 5
+let paymentInfo = {
+  cardName: "",
+  cardLast4: "",
+  exp: "",
+  postal: ""
+};
+
 // global state is set to keep track of selected service, staff, and current step in the booking process
 let selectedService = null;
 let selectedStaff = null;
@@ -209,6 +217,59 @@ function setFieldValidity(field, valid, message, feedbackId) {
     }
 }
 
+function luhnCheck(numStr) {
+  // basic Luhn algorithm for card numbers (client-side sanity check)
+  let sum = 0;
+  let shouldDouble = false;
+
+  for (let i = numStr.length - 1; i >= 0; i--) {
+    let digit = parseInt(numStr[i], 10);
+    if (Number.isNaN(digit)) return false;
+
+    if (shouldDouble) {
+      digit *= 2;
+      if (digit > 9) digit -= 9;
+    }
+    sum += digit;
+    shouldDouble = !shouldDouble;
+  }
+  return (sum % 10) === 0;
+}
+
+function normalizeDigits(s) {
+  return (s || "").replace(/\D/g, "");
+}
+
+function formatCardNumberForDisplay(raw) {
+  const digits = normalizeDigits(raw).slice(0, 16);
+  return digits.replace(/(.{4})/g, "$1 ").trim();
+}
+
+function isValidExpiry(mmYY) {
+  const v = (mmYY || "").trim();
+  if (!/^\d{2}\/\d{2}$/.test(v)) return false;
+
+  const mm = parseInt(v.slice(0, 2), 10);
+  const yy = parseInt(v.slice(3, 5), 10);
+  if (mm < 1 || mm > 12) return false;
+
+  // interpret YY as 20YY (good enough for an assignment demo)
+  const now = new Date();
+  const currentYY = now.getFullYear() % 100;
+  const currentMM = now.getMonth() + 1;
+
+  if (yy < currentYY) return false;
+  if (yy === currentYY && mm < currentMM) return false;
+
+  return true;
+}
+
+function isValidPostalCA(postal) {
+  // Canadian postal code: A1A1A1 (spaces optional)
+  const v = (postal || "").trim().toUpperCase().replace(/\s/g, "");
+  return /^[A-Z]\d[A-Z]\d[A-Z]\d$/.test(v);
+}
+
 /*initialize the application when DOM is ready*/
 document.addEventListener('DOMContentLoaded', function() {
     renderServices();
@@ -227,6 +288,128 @@ function renderServices() {
         const card = createServiceCard(service);
         container.appendChild(card);
     });
+}
+
+function hookPaymentValidation(){
+  const submitBtn = document.getElementById('submitBooking');
+  const progressEl = document.getElementById('paymentFormProgress');
+
+  const nameEl   = document.getElementById('cardName');
+  const numEl    = document.getElementById('cardNumber');
+  const expEl    = document.getElementById('cardExp');
+  const cvvEl    = document.getElementById('cardCvv');
+  const postalEl = document.getElementById('billingPostal');
+
+  if (!submitBtn || !nameEl || !numEl || !expEl || !cvvEl || !postalEl) return;
+
+  function validate(){
+    const nameVal = nameEl.value.trim();
+    const numDigits = normalizeDigits(numEl.value);
+    const expVal = expEl.value.trim();
+    const cvvDigits = normalizeDigits(cvvEl.value);
+    const postalVal = postalEl.value.trim();
+
+    const nameValid = nameVal.length >= 2;
+
+    // allow 13-19 digits generally, but we format to 16 visually
+    const numberLengthOk = numDigits.length >= 13 && numDigits.length <= 19;
+    const numberValid = numberLengthOk && luhnCheck(numDigits);
+
+    const expValid = isValidExpiry(expVal);
+
+    // CVV 3 or 4 digits
+    const cvvValid = /^\d{3,4}$/.test(cvvDigits);
+
+    const postalValid = isValidPostalCA(postalVal);
+
+    // per-field feedback
+    if (nameEl.value !== '') {
+      setFieldValidity(nameEl, nameValid, 'Name on card is required.', 'feedback-cardName');
+    } else {
+      nameEl.classList.remove('is-valid', 'is-invalid');
+    }
+
+    if (numEl.value !== '') {
+      setFieldValidity(numEl, numberValid, 'Enter a valid card number.', 'feedback-cardNumber');
+    } else {
+      numEl.classList.remove('is-valid', 'is-invalid');
+    }
+
+    if (expEl.value !== '') {
+      setFieldValidity(expEl, expValid, 'Use MM/YY and a future date.', 'feedback-cardExp');
+    } else {
+      expEl.classList.remove('is-valid', 'is-invalid');
+    }
+
+    if (cvvEl.value !== '') {
+      setFieldValidity(cvvEl, cvvValid, 'CVV must be 3 or 4 digits.', 'feedback-cardCvv');
+    } else {
+      cvvEl.classList.remove('is-valid', 'is-invalid');
+    }
+
+    if (postalEl.value !== '') {
+      setFieldValidity(postalEl, postalValid, 'Use Canadian format (e.g. K1A0B1).', 'feedback-billingPostal');
+    } else {
+      postalEl.classList.remove('is-valid', 'is-invalid');
+    }
+
+    const overallValid = nameValid && numberValid && expValid && cvvValid && postalValid;
+
+    // don’t allow submit until payment is valid
+    submitBtn.disabled = !overallValid;
+
+    if (progressEl) {
+      const missing = [];
+      if (!nameValid) missing.push('name');
+      if (!numberValid) missing.push('card number');
+      if (!expValid) missing.push('expiry');
+      if (!cvvValid) missing.push('CVV');
+      if (!postalValid) missing.push('postal code');
+
+      progressEl.innerHTML = (missing.length === 0)
+        ? '<span style="color:var(--success-green)">✓ Payment info looks valid (still demo-only).</span>'
+        : `Still needed: <strong>${missing.join(', ')}</strong>`;
+    }
+
+    if (overallValid) {
+      paymentInfo = {
+        cardName: nameVal,
+        cardLast4: numDigits.slice(-4),
+        exp: expVal,
+        postal: postalVal.trim().toUpperCase().replace(/\s/g, "")
+      };
+    }
+  }
+
+  // Formatting constraints
+  numEl.addEventListener('input', () => {
+    numEl.value = formatCardNumberForDisplay(numEl.value);
+    validate();
+  });
+
+  expEl.addEventListener('input', () => {
+    const digits = normalizeDigits(expEl.value).slice(0, 4); // MMYY
+    if (digits.length <= 2) expEl.value = digits;
+    else expEl.value = digits.slice(0,2) + '/' + digits.slice(2);
+    validate();
+  });
+
+  cvvEl.addEventListener('input', () => {
+    cvvEl.value = normalizeDigits(cvvEl.value).slice(0, 4);
+    validate();
+  });
+
+  postalEl.addEventListener('input', () => {
+    postalEl.value = postalEl.value.toUpperCase().replace(/[^A-Z0-9\s]/g, '').slice(0, 7);
+    validate();
+  });
+
+  [nameEl].forEach(el => {
+    el.addEventListener('input', validate);
+    el.addEventListener('change', validate);
+  });
+
+  validate();
 }
 
 /**
@@ -381,6 +564,7 @@ function initializeEventListeners() {
 
     // step 4 validation
     hookContactValidation();
+    hookPaymentValidation();
 }
 
 function hookContactValidation(){
@@ -504,6 +688,13 @@ function populateFinalSummary(){
 }
 
 function submitBooking() {
+    // stop if payment is not valid (defensive)
+    const submitBtn = document.getElementById('submitBooking');
+    if (submitBtn && submitBtn.disabled) {
+    showToast('Please complete valid payment details before submitting (demo only).', 'warning');
+    announceToScreenReader('Payment details are incomplete.');
+    return;
+    }
     const btn = document.getElementById('submitBooking');
     const box = document.getElementById('submitResult');
     if (!box) return;
