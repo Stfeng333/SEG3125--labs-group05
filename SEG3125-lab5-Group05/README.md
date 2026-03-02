@@ -40,3 +40,6 @@ new features added (based on Don Norman's Design Principles):
 - The phone number field automatically removes any non-numeric characters as the user types, making it impossible to enter an incorrectly formatted number
 
 ---
+
+**Contributions per member**
+- 1/3 by Ahmed Salma (added icons to services, experts, and more elements, upgraded feedback and constraints to adhere to the principles, and optimized the NavBar), 1/3 by Sahara Sammy (added the payment section with respective fields such as credit card, published website on GitHub Pages), 1/3 by Steven Feng Peng (upgraded the visibility, affordance, mapping and consistency elements according to Norman’s Principles, made PDF and updated README)
