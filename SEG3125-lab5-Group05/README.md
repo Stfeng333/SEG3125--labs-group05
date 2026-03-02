@@ -5,7 +5,7 @@ This is an improvement of lab 4, keeping all the requriements from lab 4, we wil
 
 The contributions were equal, the repository will be posted in the GitHub classroom of the course, and the personal repository is Stfeng333... https://github.com/Stfeng333/SEG3125--labs-group05 
 
-The website itself is published by Sahara at... 
+The website itself is published by Sahara at... https://sammysahara.github.io/cycler-forever/
 
 new features added (based on Don Norman's Design Principles):
 
