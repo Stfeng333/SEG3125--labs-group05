@@ -288,12 +288,89 @@ textarea:focus {
   transform: scale(1);
 }
 
-/* ─────────────────────────────────────────────────────────────────────────────
-   Top navigation bar – shared between survey (index.html) and analyst page
-   ─────────────────────────────────────────────────────────────────────────────
-   TO DO [UI] Nav: adjust .top-nav padding/background, .nav-link colours, or add
-   a logo image here. Changes apply to both pages at once.
-   TO DO [A11Y] Nav: add a visible :focus-visible outline to .nav-link for keyboard users. */
+.nav-link:focus-visible,
+.submit-btn:focus-visible,
+.skip-link:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--hover);
+  outline-offset: 2px;
+}
+
+#step-indicator {
+  max-width: 800px;
+  margin: 24px auto 0;
+  padding: 10px 16px;
+  border-radius: 10px;
+  background: rgba(59, 130, 246, 0.12);
+  border: 1px solid rgba(59, 130, 246, 0.28);
+  color: var(--moon-glow);
+  font-weight: 600;
+  text-align: center;
+  letter-spacing: 0.03em;
+}
+
+.form-step[hidden] {
+  display: none !important;
+}
+
+.question-fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+
+.question-fieldset legend {
+  width: 100%;
+  margin-bottom: 10px;
+  font-weight: 600;
+  color: var(--moon-text);
+}
+
+.hint-text {
+  display: inline-block;
+  margin-left: 6px;
+  font-weight: 400;
+  color: var(--moon-light);
+  font-size: 0.9rem;
+}
+
+.form-navigation {
+  margin-top: 28px;
+}
+
+.nav-button-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.nav-button-row .submit-btn {
+  width: auto;
+  flex: 1 1 180px;
+  margin-top: 0;
+}
+
+.header-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.skip-link {
+  color: var(--moon-glow);
+  text-decoration: underline;
+  font-size: 0.9rem;
+}
+
+.skip-link:hover {
+  color: var(--hover);
+}
+
+
 
 .top-nav {
   display: flex;
@@ -367,13 +444,27 @@ textarea:focus {
   border: 1px solid rgba(248, 113, 113, 0.3);
 }
 
-/* ─────────────────────────────────────────────────────────────────────────────
-   Analyst Dashboard – layout, stat cards, charts, response cards
-   ─────────────────────────────────────────────────────────────────────────────
-   TO DO [UI] Analyst page: adjust spacing, card border-radius, or colours below.
-   TO DO [CHARTS] Pie charts: add .pie-chart / canvas styles here once you add
-   the chart containers in analyst.html and the rendering logic in analyst.js. */
 
+.pie-chart {
+  margin-top: 18px;
+  display: flex;
+  justify-content: center;
+}
+
+.pie-chart-visual {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  border: 8px solid rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.pie-chart-empty {
+  color: var(--moon-light);
+  font-size: 0.85rem;
+  font-style: italic;
+  text-align: center;
+}
 /* Outer wrapper constrains width and centres content */
 .analyst-wrapper {
   max-width: 1000px;
@@ -647,5 +738,28 @@ textarea:focus {
 
   .bar-label {
     flex: 0 0 120px;
+  }
+
+  #step-indicator {
+    margin: 18px 16px 0;
+    font-size: 0.92rem;
+    padding: 10px 12px;
+  }
+
+  .nav-button-row {
+    flex-direction: column;
+  }
+
+  .nav-button-row .submit-btn {
+    width: 100%;
+  }
+
+  .header-actions {
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .analyst-refresh-btn {
+    width: 100%;
   }
 }

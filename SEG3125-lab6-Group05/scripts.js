@@ -62,19 +62,86 @@ document.addEventListener('DOMContentLoaded', function () {
   // survey-form only exists on index.html, not on analyst.html
   if (!form) return;
 
-  // TO DO [MULTI-STEP] Add multi-step navigation logic here.
-  //   Suggested approach:
-  //     1. let currentStep = 1;
-  //        const totalSteps = 4;  // adjust to however many steps you use
-  //     2. function showStep(n) { ... } – hides all .form-step divs, shows only the nth one,
-  //        and updates the step indicator text.
-  //     3. Add click listeners on #btn-next and #btn-back that call showStep().
-  //     4. On the last step, hide #btn-next and show #submit-btn.
-  //     5. Call showStep(1) at the end of this block to initialise.
+  const backBtn = document.getElementById('btn-back');
+  const nextBtn = document.getElementById('btn-next');
+  const stepIndicator = document.getElementById('step-indicator');
+  const steps = Array.from(document.querySelectorAll('.form-step'));
 
-  // TO DO [MULTI-STEP] Per-step validation: call validatePayload() only for the fields
-  //   visible on the current step instead of all fields at once.
-  //   You can pass currentStep into validatePayload() and check only the relevant fields.
+  let currentStep = 1;
+  const totalSteps = steps.length;
+
+  function showStep(stepNumber) {
+    currentStep = stepNumber;
+
+    steps.forEach((stepEl, index) => {
+      const isActive = index + 1 === stepNumber;
+      stepEl.hidden = !isActive;
+    });
+
+    if (stepIndicator) {
+      stepIndicator.textContent = `Step ${stepNumber} of ${totalSteps}`;
+    }
+
+    if (backBtn) {
+      backBtn.style.display = stepNumber === 1 ? 'none' : 'inline-block';
+    }
+
+    if (nextBtn) {
+      nextBtn.style.display = stepNumber === totalSteps ? 'none' : 'inline-block';
+    }
+
+    if (submitBtn) {
+      submitBtn.style.display = stepNumber === totalSteps ? 'inline-block' : 'none';
+    }
+  }
+
+  function validateStep(stepNumber, payload) {
+    if (stepNumber === 1) {
+      if (!payload.predictability.trim()) {
+        return 'Please answer Question 1 before continuing.';
+      }
+      if (!payload.readability) {
+        return 'Please select a readability rating for Question 2.';
+      }
+    }
+
+    if (stepNumber === 2) {
+      if (!payload.aesthetics) {
+        return 'Please select an aesthetics rating for Question 3.';
+      }
+    }
+
+    return null;
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', function () {
+      showMessage('', '');
+      const payload = collectFormData();
+      const validationError = validateStep(currentStep, payload);
+
+      if (validationError) {
+        showMessage(validationError, 'error');
+        return;
+      }
+
+      if (currentStep < totalSteps) {
+        showStep(currentStep + 1);
+      }
+    });
+  }
+
+  if (backBtn) {
+    backBtn.addEventListener('click', function () {
+      showMessage('', '');
+      if (currentStep > 1) {
+        showStep(currentStep - 1);
+      }
+    });
+  }
+
+  showStep(1);
+  
   form.addEventListener('submit', async function (e) {
     e.preventDefault();
 

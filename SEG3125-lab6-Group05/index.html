@@ -14,12 +14,13 @@
     <nav class="top-nav" aria-label="Page navigation">
       <span class="nav-title">SEG3125 Lab 6 – Group 05</span>
       <div class="nav-links">
-        <a href="index.html"   class="nav-link nav-link--active">Survey Form</a>
+        <a href="index.html"   class="nav-link nav-link--active" aria-current="page">Survey Form</a>
         <a href="analyst.html" class="nav-link">Analyst View</a>
       </div>
     </nav>
 
-    <!-- TO DO [MULTI-STEP] step indicator placeholder: add something like <div id="step-indicator">Step 1 of 4</div> here, above the form -->
+    <div id="step-indicator">Step 1 of 4</div>
+
     <!-- novalidate: validation is handled in scripts.js before the fetch() call -->
     <form id="survey-form" novalidate>
     <div class="survey">
@@ -47,161 +48,165 @@
         />
       </a>
 
-      <!-- TO DO [MULTI-STEP] wrap Q1 (and optionally Q2) in: <div class="form-step" data-step="1"> … </div> -->
       <!-- TO DO [UI] Q1: style the text input in style.css → .question input[type="text"] -->
       <!-- TO DO [A11Y] Q1: add aria-required="true" to the <input> below -->
-      <div class="question">
-        <div class="question-number"> Question 1 of 6 </div>
-        <label for="predictability"
-          >Do buttons, menus, and flows work predictably?</label
-        >
-        <input
-          type="text"
-          id="predictability"
-          name="predictability"
-          placeholder="Your response..."
-        />
-      </div>
+      <div class="form-step" data-step="1">
+        <div class="question">
+          <div class="question-number"> Question 1 of 6 </div>
+          <label for="predictability"
+            >Do buttons, menus, and flows work predictably?</label
+          >
+          <input
+            type="text"
+            id="predictability"
+            name="predictability"
+            placeholder="Your response..."
+          />
+        </div>
 
-      <!-- TO DO [MULTI-STEP] wrap Q2 in a form-step div (same step as Q1, or its own step) -->
-      <!-- TO DO [UI] Q2: style the radio group in style.css → .radio-group -->
-      <!-- TO DO [A11Y] Q2: wrap the radio group in a <fieldset><legend> for screen readers -->
-      <div class="question">
-        <div class="question-number"> Question 2 of 6 </div>
-        <label>How would you rate the readability of the website?</label>
-        <div class="radio-group">
-          <label
-            ><input type="radio" name="readability" value="excellent" />
-            Excellent</label
-          >
-          <label
-            ><input type="radio" name="readability" value="good" /> Good</label
-          >
-          <label
-            ><input type="radio" name="readability" value="fair" /> Fair</label
-          >
-          <label
-            ><input type="radio" name="readability" value="poor" /> Poor</label
-          >
+        <!-- TO DO [UI] Q2: style the radio group in style.css → .radio-group -->
+        <!-- TO DO [A11Y] Q2: wrap the radio group in a <fieldset><legend> for screen readers -->
+        <div class="question">
+          <div class="question-number"> Question 2 of 6 </div>
+          <label>How would you rate the readability of the website?</label>
+          <div class="radio-group">
+            <label
+              ><input type="radio" name="readability" value="excellent" />
+              Excellent</label
+            >
+            <label
+              ><input type="radio" name="readability" value="good" /> Good</label
+            >
+            <label
+              ><input type="radio" name="readability" value="fair" /> Fair</label
+            >
+            <label
+              ><input type="radio" name="readability" value="poor" /> Poor</label
+            >
+          </div>
         </div>
       </div>
 
-      <!-- TO DO [MULTI-STEP] wrap Q3 (and optionally Q4) in: <div class="form-step" data-step="2"> … </div> -->
       <!-- TO DO [UI] Q3: style the dropdown in style.css → .question select -->
       <!-- TO DO [A11Y] Q3: add aria-required="true" to the <select> below -->
-      <div class="question">
-        <div class="question-number"> Question 3 of 6 </div>
-        <label for="aesthetics"
-          >How would you rate the aesthetics of the website?</label
-        >
-        <select id="aesthetics" name="aesthetics">
-          <option value="">-- Please select --</option>
-          <option value="excellent">Excellent</option>
-          <option value="good">Good</option>
-          <option value="fair">Fair</option>
-          <option value="poor">Poor</option>
-        </select>
-      </div>
+      <div class="form-step" data-step="2" hidden>
+        <div class="question">
+          <div class="question-number"> Question 3 of 6 </div>
+          <label for="aesthetics"
+            >How would you rate the aesthetics of the website?</label
+          >
+          <select id="aesthetics" name="aesthetics">
+            <option value="">-- Please select --</option>
+            <option value="excellent">Excellent</option>
+            <option value="good">Good</option>
+            <option value="fair">Fair</option>
+            <option value="poor">Poor</option>
+          </select>
+        </div>
 
-      <!-- TO DO [MULTI-STEP] include Q4 in step 2 (with Q3), or give it its own step -->
-      <!-- TO DO [UI] Q4: style the checkbox group in style.css → .checkbox-group -->
-      <!-- TO DO [A11Y] Q4: wrap the checkboxes in a <fieldset><legend> for screen readers -->
-      <div class="question">
-        <div class="question-number"> Question 4 of 6 </div>
-        <label
-          >Which aspects of the wesite's user interface caught most of your
-          attention? (You may select more than one option)</label
-        >
-        <div class="checkbox-group">
+        <!-- TO DO [UI] Q4: style the checkbox group in style.css → .checkbox-group -->
+        <!-- TO DO [A11Y] Q4: wrap the checkboxes in a <fieldset><legend> for screen readers -->
+        <div class="question">
+          <div class="question-number"> Question 4 of 6 </div>
           <label
-            ><input
-              type="checkbox"
-              name="ui-aspects"
-              value="The navigation bar"
-            />
-            Clear navigation
-          </label>
-          <label
-            ><input
-              type="checkbox"
-              name="ui-aspects"
-              value="The overall layout"
-            />
-            Clean overall layout</label
+            >Which aspects of the wesite's user interface caught most of your
+            attention? (You may select more than one option)</label
           >
-          <label
-            ><input
-              type="checkbox"
-              name="ui-aspects"
-              value="The color scheme"
-            />
-            Appealing color scheme</label
-          >
-          <label
-            ><input
-              type="checkbox"
-              name="ui-aspects"
-              value="How responsive it is to user interactions"
-            />
-            Response time</label
-          >
-          <label
-            ><input
-              type="checkbox"
-              name="ui-aspects"
-              value="The loading speed"
-            />
-            Loading speed</label
-          >
+          <div class="checkbox-group">
+            <label
+              ><input
+                type="checkbox"
+                name="ui-aspects"
+                value="The navigation bar"
+              />
+              Clear navigation
+            </label>
+            <label
+              ><input
+                type="checkbox"
+                name="ui-aspects"
+                value="The overall layout"
+              />
+              Clean overall layout</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                name="ui-aspects"
+                value="The color scheme"
+              />
+              Appealing color scheme</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                name="ui-aspects"
+                value="How responsive it is to user interactions"
+              />
+              Response time</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                name="ui-aspects"
+                value="The loading speed"
+              />
+              Loading speed</label
+            >
+          </div>
         </div>
       </div>
       
-        <!-- TO DO [MULTI-STEP] wrap Q5 in: <div class="form-step" data-step="3"> … </div> -->
         <!-- TO DO [UI] Q5: style the icon tiles in style.css → .icon-grid / .icon-tile -->
-        <!-- TO DO [A11Y] Q5: wrap in <fieldset><legend> and ensure each img alt is descriptive -->
+        <!-- DONE [A11Y] Q5: wrap in <fieldset><legend> and ensure each img alt is descriptive -->
+      <div class="form-step" data-step="3" hidden>
         <div class="question">
-  <div class="question-number"> Question 5 of 6 </div>
+          <div class="question-number"> Question 5 of 6 </div>
 
-  <label class="image-question-title">
-    Based on the homepage, what seems to be Heimdal's main promise to customers?
-    <span class="hint-text">(Select one or more icons)</span>
-  </label>
+          <fieldset class="question-fieldset">
+            <legend>
+              Based on the homepage, what seems to be Heimdal's main promise to customers?
+              <span class="hint-text">(Select one or more icons)</span>
+            </legend>
 
-  <div class="icon-grid">
-    <label class="icon-tile">
-      <input type="checkbox" name="heimdal_promise[]" value="consolidation">
-      <img src="images/consolidation-empty.png" alt="Consolidation icon">
-    </label>
-    <label class="icon-tile">
-      <input type="checkbox" name="heimdal_promise[]" value="compliance">
-      <img src="images/compliance-empty.png" alt="Compliance icon">
-    </label>
-    <label class="icon-tile">
-      <input type="checkbox" name="heimdal_promise[]" value="protection">
-      <img src="images/protection-empty.png" alt="Protection icon">
-    </label>
-    <label class="icon-tile">
-      <input type="checkbox" name="heimdal_promise[]" value="efficiency">
-      <img src="images/efficiency-empty.png" alt="Efficiency icon">
-    </label>
-  </div>
-</div>
+            <div class="icon-grid">
+              <label class="icon-tile">
+                <input type="checkbox" name="heimdal_promise[]" value="consolidation">
+                <img src="images/consolidation-empty.png" alt="Consolidation icon">
+              </label>
+              <label class="icon-tile">
+                <input type="checkbox" name="heimdal_promise[]" value="compliance">
+                <img src="images/compliance-empty.png" alt="Compliance icon">
+              </label>
+              <label class="icon-tile">
+                <input type="checkbox" name="heimdal_promise[]" value="protection">
+                <img src="images/protection-empty.png" alt="Protection icon">
+              </label>
+              <label class="icon-tile">
+                <input type="checkbox" name="heimdal_promise[]" value="efficiency">
+                <img src="images/efficiency-empty.png" alt="Efficiency icon">
+              </label>
+            </div>
+          </fieldset>
+        </div>
+      </div>
       
       <!-- TO DO [MULTI-STEP] wrap Q6 + submit button in: <div class="form-step" data-step="4"> … </div> -->
       <!-- TO DO [UI] Q6: style the textarea in style.css → .question textarea -->
-      <div class="question">
-        <div class="question-number"> Question 6 of 6 </div>
-        <label for="comments"
-          >Any additional comments or suggestions that you want to share?</label
-        >
-        <textarea
-          id="comments"
-          name="comments"
-          rows="5"
-          placeholder="Share your opinions about the UI of Heimdal Cybersecurity Solutions"
-        ></textarea>
+      <div class="form-step" data-step="4" hidden>
+        <div class="question">
+          <div class="question-number"> Question 6 of 6 </div>
+          <label for="comments"
+            >Any additional comments or suggestions that you want to share?</label
+          >
+          <textarea
+            id="comments"
+            name="comments"
+            rows="5"
+            placeholder="Share your opinions about the UI of Heimdal Cybersecurity Solutions"
+          ></textarea>
+        </div>
       </div>
-
       <!-- TO DO [MULTI-STEP] replace this single submit button with Back / Next / Submit buttons -->
       <!--   Suggested structure:
              <button type="button" id="btn-back"  class="submit-btn" style="display:none">← Back</button>
@@ -211,6 +216,8 @@
       <!-- TO DO [UI] style the Back/Next buttons in style.css -->
       <div class="question">
         <div id="form-message" class="form-message" role="alert" aria-live="polite"></div>
+        <button type="button" id="btn-back"  class="submit-btn" style="display:none">← Back</button>
+        <button type="button" id="btn-next"  class="submit-btn">Next →</button>
         <button type="submit" id="submit-btn" class="submit-btn">Submit My Answers</button>
       </div>
     </div>

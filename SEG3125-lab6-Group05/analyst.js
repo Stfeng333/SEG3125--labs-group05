@@ -119,23 +119,42 @@ function renderCharts(stats, totalResponses) {
   if (!stats) return
 
   // Maps each chart container ID to its stats key
-  // TO DO [CHARTS] Add a pieContainerId to each entry once you add the <div> placeholders in analyst.html:
-  //   { containerId: 'bars-readability', dataKey: 'readability', pieContainerId: 'pie-readability' }
-  //   Then call renderPieChart(pieContainer, data, totalResponses) inside the forEach below.
   const chartConfig = [
-    { containerId: 'bars-readability', dataKey: 'readability' },
-    { containerId: 'bars-aesthetics', dataKey: 'aesthetics' },
-    { containerId: 'bars-uiAspects', dataKey: 'uiAspects' },
-    { containerId: 'bars-heimdalPromise', dataKey: 'heimdalPromise' },
-  ]
+    {
+      barContainerId: 'bars-readability',
+      pieContainerId: 'pie-readability',
+      dataKey: 'readability',
+    },
+    {
+      barContainerId: 'bars-aesthetics',
+      pieContainerId: 'pie-aesthetics',
+      dataKey: 'aesthetics',
+    },
+    {
+      barContainerId: 'bars-uiAspects',
+      pieContainerId: 'pie-uiAspects',
+      dataKey: 'uiAspects',
+    },
+    {
+      barContainerId: 'bars-heimdalPromise',
+      pieContainerId: 'pie-heimdalPromise',
+      dataKey: 'heimdalPromise',
+    },
+  ];
 
-  chartConfig.forEach(({ containerId, dataKey }) => {
-    const container = document.getElementById(containerId)
-    if (!container) return
+  chartConfig.forEach(({ barContainerId, pieContainerId, dataKey }) => {
+    const barContainer = document.getElementById(barContainerId);
+    const pieContainer = document.getElementById(pieContainerId);
+    const data = stats[dataKey] || {};
 
-    const data = stats[dataKey] || {}
-    renderBarChart(container, data, totalResponses)
-  })
+    if (barContainer) {
+      renderBarChart(barContainer, data, totalResponses);
+    }
+
+    if (pieContainer) {
+      renderPieChart(pieContainer, data, totalResponses);
+    }
+  });
 }
 
 /**
@@ -174,6 +193,8 @@ function renderBarChart(container, data, totalResponses) {
     container.appendChild(row)
   })
 }
+
+
 
 /**
  * Render individual response cards in the responses-container element
@@ -282,16 +303,54 @@ function buildResponseCard(resp) {
   return card
 }
 
-// TO DO [CHARTS] Add a renderPieChart(container, data, totalResponses) function here.
+// DONE [CHARTS] Add a renderPieChart(container, data, totalResponses) function here.
 //   It should read the same `data` object as renderBarChart (e.g. { excellent: 3, good: 5 })
 //   and draw a pie/doughnut chart.
 //   Option A (no library): use a CSS conic-gradient on a single <div>.
-//   Option B (library):    use Chart.js – add its CDN <script> tag to analyst.html,
-//                          then create a <canvas> element here and call new Chart(...).
+function renderPieChart(container, data, totalResponses) {
+  container.innerHTML = '';
+  const entries = Object.entries(data);
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Delete handler
-// ─────────────────────────────────────────────────────────────────────────────
+  if (entries.length === 0 || totalResponses === 0) {
+    container.innerHTML = '<p class="pie-chart-empty">No data yet.</p>';
+    return;
+  }
+
+  const colors = [
+    '#3b82f6',
+    '#60a5fa',
+    '#93c5fd',
+    '#2563eb',
+    '#1d4ed8',
+    '#38bdf8',
+    '#0ea5e9',
+    '#818cf8',
+  ];
+
+  let currentDeg = 0;
+  const segments = entries.map(([label, count], index) => {
+    const sliceDeg = (count / totalResponses) * 360;
+    const start = currentDeg;
+    const end = currentDeg + sliceDeg;
+    currentDeg = end;
+    return `${colors[index % colors.length]} ${start}deg ${end}deg`;
+  });
+
+  const chart = document.createElement('div');
+  chart.className = 'pie-chart-visual';
+  chart.style.background = `conic-gradient(${segments.join(', ')})`;
+  chart.setAttribute(
+    'aria-label',
+    entries
+      .map(([label, count]) => {
+        const pct = Math.round((count / totalResponses) * 100);
+        return `${label}: ${count} responses (${pct}%)`;
+      })
+      .join(', ')
+  );
+
+  container.appendChild(chart);
+}
 
 /**
  * Send a DELETE request to the API and remove the card from the DOM on success.
