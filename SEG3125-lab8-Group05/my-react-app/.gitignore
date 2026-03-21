@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# To block the .env file which may contain sensitive information, you can uncomment the following line:
+.env
+.env.*
+!.env.example
