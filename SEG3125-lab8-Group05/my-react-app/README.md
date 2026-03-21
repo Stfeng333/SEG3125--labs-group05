@@ -1,73 +1,54 @@
-# React + TypeScript + Vite
+# Team Scaffolding (Lab 8)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This React app now contains only blank page templates for your team project section.
 
-Currently, two official plugins are available:
+Your teammates can implement layout and design later without changing routing or folder structure.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Available routes (blank templates)
 
-## React Compiler
+- `/`
+- `/notes`
+- `/notes/:noteId`
+- `/requests`
+- `/requests/:requestId`
+- `/classes`
+- `/courses`
+- `/courses/:courseId`
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Project structure added for next week database integration
 
-## Expanding the ESLint configuration
+- `src/pages/`: blank page templates
+- `src/types/models.ts`: shared TypeScript interfaces for notes, requests, classes, and courses
+- `src/config/env.ts`: environment configuration (`VITE_API_BASE_URL`)
+- `src/lib/apiClient.ts`: reusable fetch client
+- `src/services/`: API service modules (notes, requests, communities)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Environment setup
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+1. Copy `.env.example` to `.env`.
+2. Set your backend URL:
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+VITE_API_BASE_URL=http://localhost:4000/api
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Development
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev
 ```
+
+## Build
+
+```bash
+npm run build
+```
+
+## Teammate quick guide
+
+- Page layout work: `src/pages/` (see `TEAM TODO` comments in each page file).
+- Routing and flow mapping: `src/App.tsx`.
+- Shared data types: `src/types/models.ts`.
+- API integration and database wiring: `src/services/` + `src/lib/apiClient.ts`.
+- Backend URL config: `.env` from `.env.example`.
