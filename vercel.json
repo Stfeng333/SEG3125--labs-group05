@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "installCommand": "cd SEG3125-lab8-Group05/my-react-app && npm install",
+  "buildCommand": "cd SEG3125-lab8-Group05/my-react-app && npm run build",
+  "outputDirectory": "SEG3125-lab8-Group05/my-react-app/dist",
+  "routes": [
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "/.*",
+      "dest": "/index.html"
+    }
+  ]
+}
