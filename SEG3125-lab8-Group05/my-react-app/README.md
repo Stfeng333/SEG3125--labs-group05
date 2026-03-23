@@ -1,21 +1,4 @@
-# Team Scaffolding (Lab 8)
-
-This React app now contains only blank page templates for your team project section.
-
-Your teammates can implement layout and design later without changing routing or folder structure.
-
-## Available routes (blank templates)
-
-- `/`
-- `/notes`
-- `/notes/:noteId`
-- `/requests`
-- `/requests/:requestId`
-- `/classes`
-- `/courses`
-- `/courses/:courseId`
-
-## Project structure added for next week database integration
+# Project structure added for next week database integration
 
 - `src/pages/`: blank page templates
 - `src/types/models.ts`: shared TypeScript interfaces for notes, requests, classes, and courses
@@ -46,7 +29,6 @@ npm run build
 ```
 
 ## Teammate quick guide
-
 - Page layout work: `src/pages/` (see `TEAM TODO` comments in each page file).
 - Routing and flow mapping: `src/App.tsx`.
 - Shared data types: `src/types/models.ts`.

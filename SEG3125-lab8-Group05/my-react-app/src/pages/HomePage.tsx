@@ -38,8 +38,8 @@ export function HomePage() {
 
   const sidebarItems = [
     { label: 'Dashboard', path: '/' },
-    { label: 'Class Filter', path: '/classes' },
-    { label: 'Course Filter', path: '/courses' },
+    { label: 'Classes', path: '/classes' },
+    { label: 'Courses', path: '/courses' },
     { label: 'Topic Tags', path: '/notes' },
     { label: 'Sort', path: '/requests' },
   ]
