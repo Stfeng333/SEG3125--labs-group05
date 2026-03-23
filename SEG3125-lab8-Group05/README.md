@@ -1,6 +1,13 @@
 # SEG 3125 - lab 8 - Group05
 This lab is based on implementing the website that was designed for lab 7
 The choice that group 05 has decided to work on is a web app with React
+Description of website: making knowledge sharing easy, fast, and organized for everyone. Encouraging users to:
+- Post notes about one or multiple topics/subjects
+- Request notes on topics they need help with
+- Reply to requests by sharing their own notes
+- Join “Classes” and “Courses” to access structures collections of notes
+
+NOTE: Most of the functionality will be implemented for the last lab, since it requires the database
 ---
 
 ## How to run this project (for developers)
@@ -76,8 +83,8 @@ Use this section to split work by feature without editing everything at once.
 
 The contributions were equal, the repository will be posted in the GitHub classroom of the course, and the personal repository is Stfeng333... https://github.com/Stfeng333/SEG3125--labs-group05 
 
-The website itself is published by Sahara at... 
+The website itself is published on: 
 
 
 **Contributions per member**
-- 1/3 by Ahmed Salma (), 1/3 by Sahara Sammy (), 1/3 by Steven Feng Peng (set up the initial architecture for the website, set up an opening for the future database implementation)
+- Contribution percentage: 1/3 by Ahmed Salma (implemented design of homepage, classes page, course details, course page, notes detail page), 1/3 by Sahara Sammy (implemented the design of notes page, page templates, requests page, request details, and the database diagram), 1/3 by Steven Feng Peng (set up React into the project, implemented the base/backbone/backend fundamentals of the website, wrote the README.md file for the team/developers/readers to understand how to run the project, made the PDF)
