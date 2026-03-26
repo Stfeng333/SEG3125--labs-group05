@@ -1,33 +1,31 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { notesService } from '../services'
+import type { Note } from '../types/models'
 import { PageTemplate } from './PageTemplate'
 
-const notes = [
-  {
-    id: '1',
-    title: 'Understanding JavaScript Promises',
-    preview: 'An in-depth explanation of how promises work.',
-    tags: ['JavaScript', 'Async'],
-    author: 'Jane Doe',
-  },
-  {
-    id: '2',
-    title: 'CSS Grid Layout',
-    preview: 'A guide to using CSS Grid.',
-    tags: ['CSS', 'Layout'],
-    author: 'John Smith',
-  },
-  {
-    id: '3',
-    title: 'React Hooks Deep Dive',
-    preview: 'Understand state and effects in modern React apps.',
-    tags: ['React', 'Frontend'],
-    author: 'User3',
-  },
-]
-
 export function NotesPage() {
+  const [notes, setNotes] = useState<Note[]>([])
   const [query, setQuery] = useState('')
+  const [loading, setLoading] = useState(true)
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
+
+  useEffect(() => {
+    async function loadNotes() {
+      try {
+        setLoading(true)
+        setErrorMessage(null)
+        const response = await notesService.list()
+        setNotes(response)
+      } catch (error) {
+        setErrorMessage(error instanceof Error ? error.message : 'Failed to load notes.')
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    void loadNotes()
+  }, [])
 
   const filteredNotes = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase()
@@ -39,10 +37,10 @@ export function NotesPage() {
         note.title.toLowerCase().includes(normalizedQuery) ||
         note.preview.toLowerCase().includes(normalizedQuery) ||
         note.tags.some((tag) => tag.toLowerCase().includes(normalizedQuery)) ||
-        note.author.toLowerCase().includes(normalizedQuery)
+        note.author.displayName.toLowerCase().includes(normalizedQuery)
       )
     })
-  }, [query])
+  }, [notes, query])
 
   return (
     <PageTemplate
@@ -83,6 +81,34 @@ export function NotesPage() {
           gap: '18px',
         }}
       >
+        {loading ? (
+          <article
+            style={{
+              backgroundColor: '#ffffff',
+              border: '1px solid #e5e7eb',
+              borderRadius: '20px',
+              padding: '20px',
+              color: '#6b7280',
+            }}
+          >
+            Loading notes...
+          </article>
+        ) : null}
+
+        {errorMessage ? (
+          <article
+            style={{
+              backgroundColor: '#ffffff',
+              border: '1px solid #fecaca',
+              borderRadius: '20px',
+              padding: '20px',
+              color: '#b91c1c',
+            }}
+          >
+            {errorMessage}
+          </article>
+        ) : null}
+
         {filteredNotes.map((note) => (
           <article
             key={note.id}
@@ -147,7 +173,7 @@ export function NotesPage() {
                 fontSize: '0.9rem',
               }}
             >
-              By {note.author}
+              By {note.author.displayName}
             </p>
 
             <Link
@@ -166,7 +192,7 @@ export function NotesPage() {
         ))}
       </section>
 
-      {filteredNotes.length === 0 ? (
+      {!loading && !errorMessage && filteredNotes.length === 0 ? (
         <section
           style={{
             marginTop: '20px',

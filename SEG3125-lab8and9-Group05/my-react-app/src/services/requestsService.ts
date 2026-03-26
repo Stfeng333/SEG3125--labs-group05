@@ -1,20 +1,26 @@
 import { apiClient } from '../lib/apiClient'
-import type { NoteRequest, NoteRequestInput } from '../types/models'
+import type { NoteRequest, NoteRequestInput, RequestReply, RequestReplyInput } from '../types/models'
 
 const REQUESTS_ENDPOINT = '/requests'
 
 export const requestsService = {
-  // TEAM TODO (Backend): Connect this endpoint to your real requests table/API.
   list() {
     return apiClient<NoteRequest[]>(REQUESTS_ENDPOINT)
   },
-  // TEAM TODO (Backend): Confirm ID format and route with database implementation.
   getById(requestId: string) {
     return apiClient<NoteRequest>(`${REQUESTS_ENDPOINT}/${requestId}`)
   },
-  // TEAM TODO (Backend): Add validation/auth handling once create-request API is live.
   create(payload: NoteRequestInput) {
     return apiClient<NoteRequest>(REQUESTS_ENDPOINT, {
+      method: 'POST',
+      body: payload,
+    })
+  },
+  getReplies(requestId: string) {
+    return apiClient<RequestReply[]>(`${REQUESTS_ENDPOINT}/${requestId}/replies`)
+  },
+  addReply(requestId: string, payload: RequestReplyInput) {
+    return apiClient<RequestReply>(`${REQUESTS_ENDPOINT}/${requestId}/replies`, {
       method: 'POST',
       body: payload,
     })

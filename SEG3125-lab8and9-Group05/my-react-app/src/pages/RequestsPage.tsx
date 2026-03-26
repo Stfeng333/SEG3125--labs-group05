@@ -1,40 +1,57 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { requestsService } from '../services'
+import type { NoteRequest } from '../types/models'
 import { PageTemplate } from './PageTemplate'
 
 export function RequestsPage() {
-  const [requests, setRequests] = useState([
-    {
-      id: '1',
-      title: 'Need CSI2101 notes',
-      details: 'Missed lecture 3 and need help catching up.',
-      status: 'open',
-    },
-    {
-      id: '2',
-      title: 'Looking for SEG3125 heuristic evaluation notes',
-      details: 'Especially the examples from class.',
-      status: 'answered',
-    },
-  ])
+  const [requests, setRequests] = useState<NoteRequest[]>([])
 
   const [title, setTitle] = useState('')
   const [details, setDetails] = useState('')
-  const [statusFilter, setStatusFilter] = useState<'all' | 'open' | 'answered'>('all')
+  const [statusFilter, setStatusFilter] = useState<'all' | 'open' | 'answered' | 'closed'>('all')
+  const [loading, setLoading] = useState(true)
+  const [submitting, setSubmitting] = useState(false)
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
-  function handleSubmit() {
-    if (!title.trim() || !details.trim()) return
-
-    const newRequest = {
-      id: Date.now().toString(),
-      title,
-      details,
-      status: 'open',
+  useEffect(() => {
+    async function loadRequests() {
+      try {
+        setLoading(true)
+        setErrorMessage(null)
+        const response = await requestsService.list()
+        setRequests(response)
+      } catch (error) {
+        setErrorMessage(error instanceof Error ? error.message : 'Failed to load requests.')
+      } finally {
+        setLoading(false)
+      }
     }
 
-    setRequests([newRequest, ...requests])
-    setTitle('')
-    setDetails('')
+    void loadRequests()
+  }, [])
+
+  async function handleSubmit() {
+    if (!title.trim() || !details.trim()) return
+
+    try {
+      setSubmitting(true)
+      setErrorMessage(null)
+
+      const created = await requestsService.create({
+        title,
+        details,
+        tags: [],
+      })
+
+      setRequests((current) => [created, ...current])
+      setTitle('')
+      setDetails('')
+    } catch (error) {
+      setErrorMessage(error instanceof Error ? error.message : 'Failed to create request.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   const visibleRequests = useMemo(() => {
@@ -96,22 +113,38 @@ export function RequestsPage() {
 
         <button
           onClick={handleSubmit}
+          disabled={submitting}
           style={{
             padding: '10px 14px',
             borderRadius: '10px',
             border: '1px solid #323436',
-            backgroundColor: '#eae9e9',
+            backgroundColor: submitting ? '#f3f4f6' : '#eae9e9',
             color: '#111827',
             fontWeight: 600,
-            cursor: 'pointer',
+            cursor: submitting ? 'not-allowed' : 'pointer',
           }}
         >
-          Submit
+          {submitting ? 'Submitting...' : 'Submit'}
         </button>
       </section>
 
+      {errorMessage ? (
+        <section
+          style={{
+            marginBottom: '16px',
+            backgroundColor: '#ffffff',
+            border: '1px solid #fecaca',
+            borderRadius: '20px',
+            padding: '20px',
+            color: '#b91c1c',
+          }}
+        >
+          {errorMessage}
+        </section>
+      ) : null}
+
       <section style={{ marginBottom: '16px', display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-        {(['all', 'open', 'answered'] as const).map((option) => {
+        {(['all', 'open', 'answered', 'closed'] as const).map((option) => {
           const selected = option === statusFilter
           return (
             <button
@@ -134,6 +167,20 @@ export function RequestsPage() {
       </section>
 
       <section style={{ display: 'grid', gap: '16px' }}>
+        {loading ? (
+          <article
+            style={{
+              backgroundColor: '#ffffff',
+              border: '1px solid #e5e7eb',
+              borderRadius: '20px',
+              padding: '20px',
+              color: '#6b7280',
+            }}
+          >
+            Loading requests...
+          </article>
+        ) : null}
+
         {visibleRequests.map((req) => (
           <article
             key={req.id}
@@ -176,7 +223,7 @@ export function RequestsPage() {
         ))}
       </section>
 
-      {visibleRequests.length === 0 ? (
+      {!loading && visibleRequests.length === 0 ? (
         <section
           style={{
             marginTop: '16px',

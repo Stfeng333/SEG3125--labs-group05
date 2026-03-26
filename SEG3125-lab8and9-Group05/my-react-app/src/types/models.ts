@@ -26,6 +26,21 @@ export interface NoteInput {
   courseId?: string
 }
 
+export interface NoteComment {
+  id: string
+  body: string
+  createdAt?: string
+  author?: AuthorSummary
+}
+
+export interface NoteCommentInput {
+  body: string
+}
+
+export interface NoteRatingInput {
+  rating: number
+}
+
 export interface NoteRequest {
   id: string
   title: string
@@ -44,6 +59,17 @@ export interface NoteRequestInput {
   tags: string[]
   classId?: string
   courseId?: string
+}
+
+export interface RequestReply {
+  id: string
+  body: string
+  createdAt?: string
+  author?: AuthorSummary
+}
+
+export interface RequestReplyInput {
+  body: string
 }
 
 export interface ClassCommunity {
