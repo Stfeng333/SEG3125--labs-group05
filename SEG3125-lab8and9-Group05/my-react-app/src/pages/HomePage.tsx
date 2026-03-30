@@ -1,10 +1,12 @@
 ﻿import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { notesService } from '../services'
 import type { Note } from '../types/models'
 import { PageTemplate } from './PageTemplate'
 
 export function HomePage() {
+  const { t, i18n } = useTranslation()
   const [query, setQuery] = useState('')
   const [notes, setNotes] = useState<Note[]>([])
   const [loading, setLoading] = useState(true)
@@ -18,7 +20,7 @@ export function HomePage() {
         const response = await notesService.list()
         setNotes(response)
       } catch (error) {
-        setErrorMessage(error instanceof Error ? error.message : 'Failed to load dashboard notes.')
+        setErrorMessage(error instanceof Error ? error.message : t('home.errors.loadNotes'))
       } finally {
         setLoading(false)
       }
@@ -47,9 +49,13 @@ export function HomePage() {
 
   return (
     <PageTemplate
-      name="Explore Notes"
-      subtitle="Discover helpful notes, browse by subject, and stay organized with live NoteHub content."
+      name={t('home.title')}
+      subtitle={t('home.subtitle')}
     >
+      <section style={{ marginBottom: '16px', display: 'flex', gap: '8px' }}>
+        <button onClick={() => i18n.changeLanguage('en')}>EN</button>
+        <button onClick={() => i18n.changeLanguage('fr')}>FR</button>
+      </section>
       <section
         style={{
           backgroundColor: '#ffffff',
@@ -61,7 +67,7 @@ export function HomePage() {
       >
         <input
           type="text"
-          placeholder="Search notes, classes, or topics"
+          placeholder={t('home.searchPlaceholder')}
           value={query}
           onChange={(event) => setQuery(event.target.value)}
           style={{
@@ -109,7 +115,7 @@ export function HomePage() {
               color: '#6b7280',
             }}
           >
-            Loading notes...
+            {t('home.loading')}
           </article>
         ) : null}
 
@@ -155,7 +161,7 @@ export function HomePage() {
               </div>
 
               <p style={{ margin: 0, fontSize: '0.85rem', color: '#4b5563', fontWeight: 500 }}>
-                By {note.author.displayName}
+                {t('home.by')} {note.author.displayName}
               </p>
             </article>
           </Link>
@@ -173,7 +179,7 @@ export function HomePage() {
             color: '#6b7280',
           }}
         >
-          No notes found for this search.
+          {t('home.noNotes')}
         </section>
       ) : null}
     </PageTemplate>

@@ -1,10 +1,12 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { notesService } from '../services'
 import type { Note } from '../types/models'
 import { PageTemplate } from './PageTemplate'
 
 export function NotesPage() {
+  const { t, i18n } = useTranslation()
   const [notes, setNotes] = useState<Note[]>([])
   const [query, setQuery] = useState('')
   const [loading, setLoading] = useState(true)
@@ -18,14 +20,14 @@ export function NotesPage() {
         const response = await notesService.list()
         setNotes(response)
       } catch (error) {
-        setErrorMessage(error instanceof Error ? error.message : 'Failed to load notes.')
+        setErrorMessage(error instanceof Error ? error.message : t('notes.errors.loadNotes'))
       } finally {
         setLoading(false)
       }
     }
 
     void loadNotes()
-  }, [])
+  }, [t])
 
   const filteredNotes = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase()
@@ -44,9 +46,14 @@ export function NotesPage() {
 
   return (
     <PageTemplate
-      name="Topic Tags"
-      subtitle="Browse notes by keywords and quickly open the most relevant ones."
+      name={t('notes.title')}
+      subtitle={t('notes.subtitle')}
     >
+      <section style={{ marginBottom: '16px', display: 'flex', gap: '8px' }}>
+        <button onClick={() => i18n.changeLanguage('en')}>EN</button>
+        <button onClick={() => i18n.changeLanguage('fr')}>FR</button>
+      </section>
+
       <section
         style={{
           backgroundColor: '#ffffff',
@@ -58,7 +65,7 @@ export function NotesPage() {
       >
         <input
           type="text"
-          placeholder="Search notes, topics, or authors"
+          placeholder={t('notes.searchPlaceholder')}
           value={query}
           onChange={(event) => setQuery(event.target.value)}
           style={{
@@ -91,7 +98,7 @@ export function NotesPage() {
               color: '#6b7280',
             }}
           >
-            Loading notes...
+            {t('notes.loading')}
           </article>
         ) : null}
 
@@ -173,7 +180,7 @@ export function NotesPage() {
                 fontSize: '0.9rem',
               }}
             >
-              By {note.author.displayName}
+              {t('notes.by')} {note.author.displayName}
             </p>
 
             <Link
@@ -186,7 +193,7 @@ export function NotesPage() {
                 paddingBottom: '1px',
               }}
             >
-              View note
+              {t('notes.viewNote')}
             </Link>
           </article>
         ))}
@@ -203,7 +210,7 @@ export function NotesPage() {
             color: '#6b7280',
           }}
         >
-          No notes match this search. Try broader tags or another keyword.
+          {t('notes.noNotes')}
         </section>
       ) : null}
     </PageTemplate>

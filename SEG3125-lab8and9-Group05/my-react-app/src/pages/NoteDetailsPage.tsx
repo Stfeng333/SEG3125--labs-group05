@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { notesService } from '../services'
 import type { Note, NoteComment } from '../types/models'
 import { PageTemplate } from './PageTemplate'
 
 export function NoteDetailsPage() {
+  const { t, i18n } = useTranslation()
   const { noteId } = useParams()
   const [note, setNote] = useState<Note | null>(null)
   const [comments, setComments] = useState<NoteComment[]>([])
@@ -18,7 +20,7 @@ export function NoteDetailsPage() {
   useEffect(() => {
     if (!noteId) {
       setLoading(false)
-      setErrorMessage('Invalid note ID.')
+      setErrorMessage(t('noteDetails.errors.invalidId'))
       return
     }
     const currentNoteId = noteId
@@ -34,14 +36,14 @@ export function NoteDetailsPage() {
         setNote(noteResponse)
         setComments(commentsResponse)
       } catch (error) {
-        setErrorMessage(error instanceof Error ? error.message : 'Failed to load note details.')
+        setErrorMessage(error instanceof Error ? error.message : t('noteDetails.errors.loadNote'))
       } finally {
         setLoading(false)
       }
     }
 
     void loadData()
-  }, [noteId])
+  }, [noteId, t])
 
   async function handleAddComment() {
     if (!noteId || !newComment.trim()) return
@@ -54,7 +56,7 @@ export function NoteDetailsPage() {
       setNote(updatedNote)
       setNewComment('')
     } catch (error) {
-      setErrorMessage(error instanceof Error ? error.message : 'Failed to add comment.')
+      setErrorMessage(error instanceof Error ? error.message : t('noteDetails.errors.addComment'))
     } finally {
       setSubmittingComment(false)
     }
@@ -67,14 +69,22 @@ export function NoteDetailsPage() {
       const updated = await notesService.rate(noteId, { rating: ratingValue })
       setNote(updated)
     } catch (error) {
-      setErrorMessage(error instanceof Error ? error.message : 'Failed to submit rating.')
+      setErrorMessage(error instanceof Error ? error.message : t('noteDetails.errors.submitRating'))
     } finally {
       setSubmittingRating(false)
     }
   }
 
   return (
-    <PageTemplate name={note?.title || 'Note Details'} subtitle="Read the full note, rate it, and join the discussion.">
+    <PageTemplate
+      name={note?.title || t('noteDetails.title')}
+      subtitle={t('noteDetails.subtitle')}
+    >
+      <section style={{ marginBottom: '16px', display: 'flex', gap: '8px' }}>
+        <button onClick={() => i18n.changeLanguage('en')}>EN</button>
+        <button onClick={() => i18n.changeLanguage('fr')}>FR</button>
+      </section>
+
       {errorMessage ? (
         <section
           style={{
@@ -99,12 +109,12 @@ export function NoteDetailsPage() {
           marginBottom: '28px',
         }}
       >
-        {loading ? <p style={{ margin: 0, color: '#6b7280' }}>Loading note...</p> : null}
+        {loading ? <p style={{ margin: 0, color: '#6b7280' }}>{t('noteDetails.loading')}</p> : null}
         {!loading && note ? (
           <>
             <h1 style={{ margin: '8px 0 10px 0', fontSize: '2.1rem', fontWeight: 700 }}>{note.title}</h1>
             <p style={{ margin: '0 0 10px 0', fontSize: '1rem', fontWeight: 700, color: '#111827' }}>
-              By: {note.author.displayName}
+              {t('noteDetails.by')} {note.author.displayName}
             </p>
             <p style={{ margin: 0, lineHeight: 1.7, color: '#374151', fontSize: '0.98rem' }}>
               {note.content || note.preview}
@@ -122,9 +132,9 @@ export function NoteDetailsPage() {
           marginBottom: '28px',
         }}
       >
-        <h2 style={{ margin: '0 0 14px 0', fontSize: '1.5rem', fontWeight: 700 }}>Rating</h2>
+        <h2 style={{ margin: '0 0 14px 0', fontSize: '1.5rem', fontWeight: 700 }}>{t('noteDetails.rating')}</h2>
         <p style={{ margin: '0 0 12px 0', color: '#4b5563' }}>
-          Current average: {Number(note?.rating || 0).toFixed(1)} / 5
+          {t('noteDetails.currentAverage')} {Number(note?.rating || 0).toFixed(1)} / 5
         </p>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
@@ -158,7 +168,7 @@ export function NoteDetailsPage() {
               cursor: submittingRating ? 'not-allowed' : 'pointer',
             }}
           >
-            {submittingRating ? 'Submitting...' : 'Submit Rating'}
+            {submittingRating ? t('noteDetails.submitting') : t('noteDetails.submitRating')}
           </button>
         </div>
       </section>
@@ -171,7 +181,7 @@ export function NoteDetailsPage() {
           padding: '24px',
         }}
       >
-        <h2 style={{ margin: '0 0 16px 0', fontSize: '1.5rem', fontWeight: 700 }}>Comments</h2>
+        <h2 style={{ margin: '0 0 16px 0', fontSize: '1.5rem', fontWeight: 700 }}>{t('noteDetails.comments')}</h2>
 
         <div style={{ borderTop: '1px solid #e5e7eb', paddingTop: '18px', marginBottom: '22px' }}>
           {comments.map((comment) => (
@@ -179,13 +189,15 @@ export function NoteDetailsPage() {
               key={comment.id}
               style={{ border: '1px solid #e5e7eb', borderRadius: '12px', padding: '12px 14px', marginBottom: '12px' }}
             >
-              <div style={{ fontWeight: 600, marginBottom: '4px' }}>{comment.author?.displayName || 'Anonymous'}</div>
+              <div style={{ fontWeight: 600, marginBottom: '4px' }}>
+                {comment.author?.displayName || t('noteDetails.anonymous')}
+              </div>
               <div style={{ color: '#4b5563', lineHeight: 1.5 }}>{comment.body}</div>
             </div>
           ))}
 
           {!loading && comments.length === 0 ? (
-            <p style={{ margin: 0, color: '#6b7280' }}>No comments yet. Start the discussion.</p>
+            <p style={{ margin: 0, color: '#6b7280' }}>{t('noteDetails.noComments')}</p>
           ) : null}
         </div>
 
@@ -194,7 +206,7 @@ export function NoteDetailsPage() {
             type="text"
             value={newComment}
             onChange={(event) => setNewComment(event.target.value)}
-            placeholder="Add a comment here..."
+            placeholder={t('noteDetails.commentPlaceholder')}
             style={{
               flex: 1,
               minWidth: '220px',
@@ -219,7 +231,7 @@ export function NoteDetailsPage() {
               cursor: submittingComment ? 'not-allowed' : 'pointer',
             }}
           >
-            {submittingComment ? 'Sending...' : 'Send'}
+            {submittingComment ? t('noteDetails.sending') : t('noteDetails.send')}
           </button>
         </div>
       </section>

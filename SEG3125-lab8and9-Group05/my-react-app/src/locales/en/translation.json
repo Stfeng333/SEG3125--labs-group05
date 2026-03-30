@@ -1,0 +1,143 @@
+{
+  "home": {
+    "title": "Explore Notes",
+    "subtitle": "Discover helpful notes, browse by subject, and stay organized with live NoteHub content.",
+    "searchPlaceholder": "Search notes, classes, or topics",
+    "loading": "Loading notes...",
+    "by": "By",
+    "noNotes": "No notes found for this search.",
+    "errors": {
+      "loadNotes": "Failed to load dashboard notes."
+    }
+  },
+  "buttons": {
+    "english": "English",
+    "french": "Français"
+  },
+  "classes": {
+    "title": "Classes",
+    "subtitle": "Browse notes shared within this class and explore content by topic or author.",
+    "searchPlaceholder": "Search notes, authors, or topics",
+    "loading": "Loading class notes...",
+    "by": "By:",
+    "comments": "comments",
+    "noNotes": "No notes found for this class.",
+    "errors": {
+      "loadClasses": "Failed to load classes.",
+      "loadNotes": "Failed to load class notes."
+    }
+  },
+  "courseDetails": {
+    "title": "Course Details",
+    "subtitle": "Explore notes shared within this course community.",
+    "searchPlaceholder": "Search notes, authors, or topics",
+    "loading": "Loading course notes...",
+    "by": "By:",
+    "comments": "comments",
+    "noNotes": "No notes found for this course.",
+    "errors": {
+      "invalidId": "Invalid course ID.",
+      "loadCourse": "Failed to load course details."
+    }
+  },
+  "courses": {
+    "title": "Explore Courses",
+    "subtitle": "Browse available course spaces and open each one to view notes and activity.",
+    "searchPlaceholder": "Search courses",
+    "loading": "Loading courses...",
+    "openCourse": "Open this course to browse all notes associated with it.",
+    "notes": "notes",
+    "noCourses": "No courses found for this search.",
+    "errors": {
+      "loadCourses": "Failed to load courses."
+    }
+  },
+  "noteDetails": {
+  "title": "Note Details",
+  "subtitle": "Read the full note, rate it, and join the discussion.",
+  "loading": "Loading note...",
+  "by": "By:",
+  "rating": "Rating",
+  "currentAverage": "Current average:",
+  "submitting": "Submitting...",
+  "submitRating": "Submit Rating",
+  "comments": "Comments",
+  "anonymous": "Anonymous",
+  "noComments": "No comments yet. Start the discussion.",
+  "commentPlaceholder": "Add a comment here...",
+  "sending": "Sending...",
+  "send": "Send",
+  "errors": {
+    "invalidId": "Invalid note ID.",
+    "loadNote": "Failed to load note details.",
+    "addComment": "Failed to add comment.",
+    "submitRating": "Failed to submit rating."
+  }
+  },
+  "notes": {
+  "title": "Topic Tags",
+  "subtitle": "Browse notes by keywords and quickly open the most relevant ones.",
+  "searchPlaceholder": "Search notes, topics, or authors",
+  "loading": "Loading notes...",
+  "by": "By",
+  "viewNote": "View note",
+  "noNotes": "No notes match this search. Try broader tags or another keyword.",
+  "errors": {
+    "loadNotes": "Failed to load notes."
+  }
+  },
+  "sidebar": {
+  "dashboard": "Dashboard",
+  "classFilter": "Class Filter",
+  "courseFilter": "Course Filter",
+  "topicTags": "Topic Tags",
+  "sort": "Sort"
+  },
+  "pageTemplate": {
+  "ariaLabel": "page template"
+  },
+  "requestDetails": {
+  "title": "Request Details",
+  "subtitle": "Follow the discussion, review existing replies, and contribute your answer.",
+  "requestId": "Request ID:",
+  "loading": "Loading request details...",
+  "status": "Status:",
+  "open": "open",
+  "replies": "Replies",
+  "anonymous": "Anonymous",
+  "noReplies": "No replies yet. Be the first to answer.",
+  "addReply": "Add Reply",
+  "writeReply": "Write reply...",
+  "adding": "Adding...",
+  "errors": {
+    "invalidId": "Invalid request ID.",
+    "loadRequest": "Failed to load request details.",
+    "addReply": "Failed to add reply."
+  }
+  },
+  "requests": {
+  "title": "Sort",
+  "subtitle": "Create requests and sort by status to find unanswered discussions quickly.",
+  "createRequest": "Create Request",
+  "submit": "Submit",
+  "submitting": "Submitting...",
+  "loading": "Loading requests...",
+  "status": "Status:",
+  "viewRequest": "View request",
+  "noRequests": "No requests found for this filter.",
+  "form": {
+    "title": "Title",
+    "details": "Details"
+  },
+  "filters": {
+    "all": "All",
+    "open": "Open",
+    "answered": "Answered",
+    "closed": "Closed"
+  },
+  "errors": {
+    "loadRequests": "Failed to load requests.",
+    "createRequest": "Failed to create request."
+  }
+ }
+}

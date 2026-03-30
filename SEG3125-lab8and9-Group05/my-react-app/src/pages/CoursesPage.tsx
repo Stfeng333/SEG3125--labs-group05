@@ -1,10 +1,12 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { communitiesService, notesService } from '../services'
 import type { CourseCommunity, Note } from '../types/models'
 import { PageTemplate } from './PageTemplate'
 
 export function CoursesPage() {
+  const { t, i18n } = useTranslation()
   const [courses, setCourses] = useState<CourseCommunity[]>([])
   const [allNotes, setAllNotes] = useState<Note[]>([])
   const [search, setSearch] = useState('')
@@ -23,7 +25,7 @@ export function CoursesPage() {
         setCourses(coursesResponse)
         setAllNotes(notesResponse)
       } catch (error) {
-        setErrorMessage(error instanceof Error ? error.message : 'Failed to load courses.')
+        setErrorMessage(error instanceof Error ? error.message : t('courses.errors.loadCourses'))
       } finally {
         setLoading(false)
       }
@@ -56,9 +58,13 @@ export function CoursesPage() {
 
   return (
     <PageTemplate
-      name="Explore Courses"
-      subtitle="Browse available course spaces and open each one to view notes and activity."
+      name={t('courses.title')}
+      subtitle={t('courses.subtitle')}
     >
+      <section style={{ marginBottom: '16px', display: 'flex', gap: '8px' }}>
+        <button onClick={() => i18n.changeLanguage('en')}>EN</button>
+        <button onClick={() => i18n.changeLanguage('fr')}>FR</button>
+      </section>
       <section
         style={{
           backgroundColor: '#ffffff',
@@ -70,7 +76,7 @@ export function CoursesPage() {
       >
         <input
           type="text"
-          placeholder="Search courses"
+          placeholder={t('courses.searchPlaceholder')}
           value={search}
           onChange={(event) => setSearch(event.target.value)}
           style={{
@@ -118,7 +124,7 @@ export function CoursesPage() {
               color: '#6b7280',
             }}
           >
-            Loading courses...
+            {t('courses.loading')}
           </article>
         ) : null}
 
@@ -138,10 +144,10 @@ export function CoursesPage() {
                 {course.code} - {course.name}
               </h2>
               <p style={{ margin: '0 0 18px 0', color: '#6b7280', lineHeight: 1.6, fontSize: '0.95rem' }}>
-                Open this course to browse all notes associated with it.
+                {t('courses.openCourse')}
               </p>
               <div style={{ borderTop: '1px solid #e5e7eb', paddingTop: '14px', color: '#4b5563' }}>
-                {noteCountByCourse[course.id] || 0} notes
+                {noteCountByCourse[course.id] || 0} {t('courses.notes')}
               </div>
             </article>
           </Link>
@@ -159,7 +165,7 @@ export function CoursesPage() {
             color: '#6b7280',
           }}
         >
-          No courses found for this search.
+          {t('courses.noCourses')}
         </section>
       ) : null}
     </PageTemplate>

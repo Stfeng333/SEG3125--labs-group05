@@ -3,8 +3,10 @@ import { Link } from 'react-router-dom'
 import { communitiesService, notesService } from '../services'
 import type { ClassCommunity, Note } from '../types/models'
 import { PageTemplate } from './PageTemplate'
+import { useTranslation } from 'react-i18next'
 
 export function ClassesPage() {
+  const { t, i18n } = useTranslation()
   const [classes, setClasses] = useState<ClassCommunity[]>([])
   const [selectedClassId, setSelectedClassId] = useState<string | null>(null)
   const [search, setSearch] = useState('')
@@ -39,7 +41,7 @@ export function ClassesPage() {
         const response = await notesService.list({ classId: currentClassId })
         setNotes(response)
       } catch (error) {
-        setErrorMessage(error instanceof Error ? error.message : 'Failed to load class notes.')
+        setErrorMessage(error instanceof Error ? error.message : t('classes.errors.loadClasses'))
       } finally {
         setLoading(false)
       }
@@ -68,9 +70,14 @@ export function ClassesPage() {
 
   return (
     <PageTemplate
-      name={selectedClass ? `${selectedClass.code} - ${selectedClass.name}` : 'Classes'}
-      subtitle="Browse notes shared within this class and explore content by topic or author."
+      name={selectedClass ? `${selectedClass.code} - ${selectedClass.name}` : t('classes.title')}
+      subtitle={t('classes.subtitle')}
     >
+      <section style={{ marginBottom: '16px', display: 'flex', gap: '8px' }}>
+        <button onClick={() => i18n.changeLanguage('en')}>EN</button>
+        <button onClick={() => i18n.changeLanguage('fr')}>FR</button>
+      </section>
+      
       <section style={{ marginBottom: '16px', display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
         {classes.map((item) => {
           const selected = item.id === selectedClassId
@@ -105,7 +112,7 @@ export function ClassesPage() {
       >
         <input
           type="text"
-          placeholder="Search notes, authors, or topics"
+          placeholder={t('classes.searchPlaceholder')}
           value={search}
           onChange={(event) => setSearch(event.target.value)}
           style={{
@@ -147,7 +154,7 @@ export function ClassesPage() {
               color: '#6b7280',
             }}
           >
-            Loading class notes...
+            {t('classes.loading')}
           </article>
         ) : null}
 
@@ -164,7 +171,7 @@ export function ClassesPage() {
             >
               <h2 style={{ margin: '0 0 6px 0', fontSize: '1.4rem', fontWeight: 700 }}>{note.title}</h2>
               <p style={{ margin: '0 0 12px 0', fontSize: '0.95rem', color: '#111827' }}>
-                By: {note.author.displayName}
+                {t('classes.by')} {note.author.displayName}
               </p>
 
               <p style={{ margin: '0 0 14px 0', lineHeight: 1.6, color: '#374151' }}>{note.preview}</p>
@@ -191,7 +198,7 @@ export function ClassesPage() {
                 </div>
 
                 <span style={{ fontSize: '0.95rem', color: '#4b5563' }}>
-                  {note.commentsCount || 0} comments
+                  {note.commentsCount || 0} {t('classes.comments')}
                 </span>
               </div>
             </article>
@@ -210,7 +217,7 @@ export function ClassesPage() {
             color: '#6b7280',
           }}
         >
-          No notes found for this class.
+          {t('classes.noNotes')}
         </section>
       ) : null}
     </PageTemplate>

@@ -1,10 +1,12 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { requestsService } from '../services'
 import type { NoteRequest } from '../types/models'
 import { PageTemplate } from './PageTemplate'
 
 export function RequestsPage() {
+  const { t } = useTranslation()
   const [requests, setRequests] = useState<NoteRequest[]>([])
 
   const [title, setTitle] = useState('')
@@ -22,14 +24,14 @@ export function RequestsPage() {
         const response = await requestsService.list()
         setRequests(response)
       } catch (error) {
-        setErrorMessage(error instanceof Error ? error.message : 'Failed to load requests.')
+        setErrorMessage(error instanceof Error ? error.message : t('requests.errors.loadRequests'))
       } finally {
         setLoading(false)
       }
     }
 
     void loadRequests()
-  }, [])
+  }, [t])
 
   async function handleSubmit() {
     if (!title.trim() || !details.trim()) return
@@ -48,7 +50,7 @@ export function RequestsPage() {
       setTitle('')
       setDetails('')
     } catch (error) {
-      setErrorMessage(error instanceof Error ? error.message : 'Failed to create request.')
+      setErrorMessage(error instanceof Error ? error.message : t('requests.errors.createRequest'))
     } finally {
       setSubmitting(false)
     }
@@ -61,8 +63,8 @@ export function RequestsPage() {
 
   return (
     <PageTemplate
-      name="Sort"
-      subtitle="Create requests and sort by status to find unanswered discussions quickly."
+      name={t('requests.title')}
+      subtitle={t('requests.subtitle')}
     >
       <section
         style={{
@@ -73,10 +75,10 @@ export function RequestsPage() {
           marginBottom: '20px',
         }}
       >
-        <h2 style={{ margin: '0 0 14px 0', fontSize: '1.3rem' }}>Create Request</h2>
+        <h2 style={{ margin: '0 0 14px 0', fontSize: '1.3rem' }}>{t('requests.createRequest')}</h2>
 
         <input
-          placeholder="Title"
+          placeholder={t('requests.form.title')}
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           style={{
@@ -93,7 +95,7 @@ export function RequestsPage() {
         />
 
         <textarea
-          placeholder="Details"
+          placeholder={t('requests.form.details')}
           value={details}
           onChange={(e) => setDetails(e.target.value)}
           style={{
@@ -124,7 +126,7 @@ export function RequestsPage() {
             cursor: submitting ? 'not-allowed' : 'pointer',
           }}
         >
-          {submitting ? 'Submitting...' : 'Submit'}
+          {submitting ? t('requests.submitting') : t('requests.submit')}
         </button>
       </section>
 
@@ -160,7 +162,7 @@ export function RequestsPage() {
                 cursor: 'pointer',
               }}
             >
-              {option.charAt(0).toUpperCase() + option.slice(1)}
+              {t(`requests.filters.${option}`)}
             </button>
           )
         })}
@@ -177,7 +179,7 @@ export function RequestsPage() {
               color: '#6b7280',
             }}
           >
-            Loading requests...
+            {t('requests.loading')}
           </article>
         ) : null}
 
@@ -204,7 +206,7 @@ export function RequestsPage() {
             </p>
 
             <p style={{ margin: '0 0 12px 0', color: '#6b7280', fontSize: '0.92rem' }}>
-              Status: <strong style={{ color: '#111827' }}>{req.status}</strong>
+              {t('requests.status')} <strong style={{ color: '#111827' }}>{t(`requests.filters.${req.status || 'open'}`)}</strong>
             </p>
 
             <Link
@@ -217,7 +219,7 @@ export function RequestsPage() {
                 paddingBottom: '1px',
               }}
             >
-              View request
+              {t('requests.viewRequest')}
             </Link>
           </article>
         ))}
@@ -234,7 +236,7 @@ export function RequestsPage() {
             color: '#6b7280',
           }}
         >
-          No requests found for this filter.
+          {t('requests.noRequests')}
         </section>
       ) : null}
     </PageTemplate>

@@ -1,10 +1,13 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { communitiesService, notesService } from '../services'
 import type { CourseCommunity, Note } from '../types/models'
 import { PageTemplate } from './PageTemplate'
 
+
 export function CourseDetailsPage() {
+  const { t, i18n } = useTranslation()
   const { courseId } = useParams()
   const [course, setCourse] = useState<CourseCommunity | null>(null)
   const [notes, setNotes] = useState<Note[]>([])
@@ -15,7 +18,7 @@ export function CourseDetailsPage() {
   useEffect(() => {
     if (!courseId) {
       setLoading(false)
-      setErrorMessage('Invalid course ID.')
+      setErrorMessage(t('courseDetails.errors.invalidId'))
       return
     }
     const currentCourseId = courseId
@@ -31,8 +34,7 @@ export function CourseDetailsPage() {
         setCourse(courseResponse)
         setNotes(notesResponse)
       } catch (error) {
-        setErrorMessage(error instanceof Error ? error.message : 'Failed to load course details.')
-      } finally {
+        setErrorMessage(error instanceof Error ? error.message : t('courseDetails.errors.loadCourse'))      } finally {
         setLoading(false)
       }
     }
@@ -58,9 +60,13 @@ export function CourseDetailsPage() {
 
   return (
     <PageTemplate
-      name={course ? `${course.code} - ${course.name}` : 'Course Details'}
-      subtitle="Explore notes shared within this course community."
+      name={course ? `${course.code} - ${course.name}` : t('courseDetails.title')}
+      subtitle={t('courseDetails.subtitle')}
     >
+      <section style={{ marginBottom: '16px', display: 'flex', gap: '8px' }}>
+        <button onClick={() => i18n.changeLanguage('en')}>EN</button>
+        <button onClick={() => i18n.changeLanguage('fr')}>FR</button>
+      </section>
       <section
         style={{
           backgroundColor: '#ffffff',
@@ -72,7 +78,7 @@ export function CourseDetailsPage() {
       >
         <input
           type="text"
-          placeholder="Search notes, authors, or topics"
+          placeholder={t('courseDetails.searchPlaceholder')}
           value={search}
           onChange={(event) => setSearch(event.target.value)}
           style={{
@@ -114,7 +120,7 @@ export function CourseDetailsPage() {
               color: '#6b7280',
             }}
           >
-            Loading course notes...
+            {t('courseDetails.loading')}
           </article>
         ) : null}
 
@@ -131,7 +137,7 @@ export function CourseDetailsPage() {
             >
               <h2 style={{ margin: '0 0 6px 0', fontSize: '1.4rem', fontWeight: 700 }}>{note.title}</h2>
               <p style={{ margin: '0 0 12px 0', fontSize: '0.95rem', color: '#111827' }}>
-                By: {note.author.displayName}
+                {t('courseDetails.by')} {note.author.displayName}
               </p>
               <p style={{ margin: '0 0 14px 0', lineHeight: 1.6, color: '#374151' }}>{note.preview}</p>
 
@@ -156,7 +162,7 @@ export function CourseDetailsPage() {
                   </span>
                 </div>
                 <span style={{ fontSize: '0.95rem', color: '#4b5563' }}>
-                  {note.commentsCount || 0} comments
+                  {note.commentsCount || 0} {t('courseDetails.comments')}
                 </span>
               </div>
             </article>
@@ -175,7 +181,7 @@ export function CourseDetailsPage() {
             color: '#6b7280',
           }}
         >
-          No notes found for this course.
+          {t('courseDetails.noNotes')}
         </section>
       ) : null}
     </PageTemplate>

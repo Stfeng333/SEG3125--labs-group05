@@ -1,0 +1,143 @@
+{
+  "home": {
+    "title": "Explorer Les Notes",
+    "subtitle": "Découvrez des notes utiles, parcourez par matière et restez organisé avec le contenu en direct de NoteHub.",
+    "searchPlaceholder": "Rechercher des notes, cours ou sujets",
+    "loading": "Chargement des notes...",
+    "by": "Par",
+    "noNotes": "Aucune note trouvée pour cette recherche.",
+    "errors": {
+      "loadNotes": "Impossible de charger les notes du tableau de bord."
+    }
+  },
+  "buttons": {
+    "english": "English",
+    "french": "Français"
+  },
+  "classes": {
+    "title": "Cours",
+    "subtitle": "Parcourez les notes partagées dans ce cours et explorez le contenu par sujet ou par auteur.",
+    "searchPlaceholder": "Rechercher des notes, auteurs ou sujets",
+    "loading": "Chargement des notes du cours...",
+    "by": "Par :",
+    "comments": "commentaires",
+    "noNotes": "Aucune note trouvée pour ce cours.",
+    "errors": {
+      "loadClasses": "Impossible de charger les cours.",
+      "loadNotes": "Impossible de charger les notes du cours."
+    }
+  },
+  "courseDetails": {
+    "title": "Détails du cours",
+    "subtitle": "Explorez les notes partagées dans cette communauté de cours.",
+    "searchPlaceholder": "Rechercher des notes, auteurs ou sujets",
+    "loading": "Chargement des notes du cours...",
+    "by": "Par :",
+    "comments": "commentaires",
+    "noNotes": "Aucune note trouvée pour ce cours.",
+    "errors": {
+      "invalidId": "Identifiant de cours invalide.",
+      "loadCourse": "Impossible de charger les détails du cours."
+    }
+  },
+  "courses": {
+    "title": "Explorer les cours",
+    "subtitle": "Parcourez les espaces de cours disponibles et ouvrez-en un pour voir les notes et l’activité.",
+    "searchPlaceholder": "Rechercher des cours",
+    "loading": "Chargement des cours...",
+    "openCourse": "Ouvrez ce cours pour parcourir toutes les notes qui y sont associées.",
+    "notes": "notes",
+    "noCourses": "Aucun cours trouvé pour cette recherche.",
+    "errors": {
+      "loadCourses": "Impossible de charger les cours."
+    }
+  },
+  "noteDetails": {
+  "title": "Détails de la note",
+  "subtitle": "Lisez la note complète, évaluez-la et participez à la discussion.",
+  "loading": "Chargement de la note...",
+  "by": "Par :",
+  "rating": "Évaluation",
+  "currentAverage": "Moyenne actuelle :",
+  "submitting": "Envoi...",
+  "submitRating": "Soumettre l’évaluation",
+  "comments": "Commentaires",
+  "anonymous": "Anonyme",
+  "noComments": "Aucun commentaire pour le moment. Lancez la discussion.",
+  "commentPlaceholder": "Ajoutez un commentaire ici...",
+  "sending": "Envoi...",
+  "send": "Envoyer",
+  "errors": {
+    "invalidId": "Identifiant de note invalide.",
+    "loadNote": "Impossible de charger les détails de la note.",
+    "addComment": "Impossible d’ajouter le commentaire.",
+    "submitRating": "Impossible de soumettre l’évaluation."
+  }
+ },
+ "notes": {
+  "title": "Mots-clés",
+  "subtitle": "Parcourez les notes par mots-clés et ouvrez rapidement les plus pertinentes.",
+  "searchPlaceholder": "Rechercher des notes, sujets ou auteurs",
+  "loading": "Chargement des notes...",
+  "by": "Par",
+  "viewNote": "Voir la note",
+  "noNotes": "Aucune note ne correspond à cette recherche. Essayez des tags plus larges ou un autre mot-clé.",
+  "errors": {
+    "loadNotes": "Impossible de charger les notes."
+  }
+  },
+  "sidebar": {
+  "dashboard": "Tableau de bord",
+  "classFilter": "Filtre par classe",
+  "courseFilter": "Filtre par cours",
+  "topicTags": "Mots-clés",
+  "sort": "Trier"
+  },
+  "pageTemplate": {
+  "ariaLabel": "modèle de page"
+  },
+  "requestDetails": {
+  "title": "Détails de la demande",
+  "subtitle": "Suivez la discussion, consultez les réponses existantes et contribuez avec votre réponse.",
+  "requestId": "ID de la demande :",
+  "loading": "Chargement des détails de la demande...",
+  "status": "Statut :",
+  "open": "ouverte",
+  "replies": "Réponses",
+  "anonymous": "Anonyme",
+  "noReplies": "Aucune réponse pour le moment. Soyez le premier à répondre.",
+  "addReply": "Ajouter une réponse",
+  "writeReply": "Écrivez une réponse...",
+  "adding": "Ajout...",
+  "errors": {
+    "invalidId": "Identifiant de demande invalide.",
+    "loadRequest": "Impossible de charger les détails de la demande.",
+    "addReply": "Impossible d’ajouter la réponse."
+  }
+  },
+  "requests": {
+  "title": "Trier",
+  "subtitle": "Créez des demandes et triez-les par statut pour trouver rapidement les discussions sans réponse.",
+  "createRequest": "Créer une demande",
+  "submit": "Soumettre",
+  "submitting": "Envoi...",
+  "loading": "Chargement des demandes...",
+  "status": "Statut :",
+  "viewRequest": "Voir la demande",
+  "noRequests": "Aucune demande trouvée pour ce filtre.",
+  "form": {
+    "title": "Titre",
+    "details": "Détails"
+  },
+  "filters": {
+    "all": "Toutes",
+    "open": "Ouverte",
+    "answered": "Répondue",
+    "closed": "Fermée"
+  },
+  "errors": {
+    "loadRequests": "Impossible de charger les demandes.",
+    "createRequest": "Impossible de créer la demande."
+  }
+ }
+}

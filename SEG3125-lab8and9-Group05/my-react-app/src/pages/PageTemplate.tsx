@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 type PageTemplateProps = {
   name: string
@@ -8,30 +9,31 @@ type PageTemplateProps = {
 }
 
 type SidebarItem = {
-  label: string
+  labelKey: string
   path: string
 }
 
 const sidebarItems: SidebarItem[] = [
-  { label: 'Dashboard', path: '/' },
-  { label: 'Class Filter', path: '/classes' },
-  { label: 'Course Filter', path: '/courses' },
-  { label: 'Topic Tags', path: '/notes' },
-  { label: 'Sort', path: '/requests' },
+  { labelKey: 'sidebar.dashboard', path: '/' },
+  { labelKey: 'sidebar.classFilter', path: '/classes' },
+  { labelKey: 'sidebar.courseFilter', path: '/courses' },
+  { labelKey: 'sidebar.topicTags', path: '/notes' },
+  { labelKey: 'sidebar.sort', path: '/requests' },
 ]
 
-function getActiveSidebarLabel(pathname: string) {
-  if (pathname === '/') return 'Dashboard'
-  if (pathname.startsWith('/classes')) return 'Class Filter'
-  if (pathname.startsWith('/courses')) return 'Course Filter'
-  if (pathname.startsWith('/notes')) return 'Topic Tags'
-  if (pathname.startsWith('/requests')) return 'Sort'
-  return 'Dashboard'
+function getActiveSidebarLabelKey(pathname: string) {
+  if (pathname === '/') return 'sidebar.dashboard'
+  if (pathname.startsWith('/classes')) return 'sidebar.classFilter'
+  if (pathname.startsWith('/courses')) return 'sidebar.courseFilter'
+  if (pathname.startsWith('/notes')) return 'sidebar.topicTags'
+  if (pathname.startsWith('/requests')) return 'sidebar.sort'
+  return 'sidebar.dashboard'
 }
 
 export function PageTemplate({ name, subtitle, children }: PageTemplateProps) {
+  const { t, i18n } = useTranslation()
   const location = useLocation()
-  const activeLabel = getActiveSidebarLabel(location.pathname)
+  const activeLabelKey = getActiveSidebarLabelKey(location.pathname)
 
   return (
     <div
@@ -66,13 +68,42 @@ export function PageTemplate({ name, subtitle, children }: PageTemplateProps) {
           Notehub
         </h2>
 
+        <div style={{ display: 'flex', gap: '8px' }}>
+          <button
+            onClick={() => i18n.changeLanguage('en')}
+            style={{
+              padding: '8px 12px',
+              borderRadius: '10px',
+              border: '1px solid #d1d5db',
+              backgroundColor: '#ffffff',
+              cursor: 'pointer',
+              fontWeight: 600,
+            }}
+          >
+            EN
+          </button>
+          <button
+            onClick={() => i18n.changeLanguage('fr')}
+            style={{
+              padding: '8px 12px',
+              borderRadius: '10px',
+              border: '1px solid #d1d5db',
+              backgroundColor: '#ffffff',
+              cursor: 'pointer',
+              fontWeight: 600,
+            }}
+          >
+            FR
+          </button>
+        </div>
+
         <nav style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
           {sidebarItems.map((item) => {
-            const isActive = item.label === activeLabel
+            const isActive = item.labelKey === activeLabelKey
 
             return (
               <Link
-                key={item.label}
+                key={item.labelKey}
                 to={item.path}
                 style={{
                   textAlign: 'left',
@@ -87,7 +118,7 @@ export function PageTemplate({ name, subtitle, children }: PageTemplateProps) {
                   display: 'block',
                 }}
               >
-                {item.label}
+                {t(item.labelKey)}
               </Link>
             )
           })}
@@ -96,7 +127,7 @@ export function PageTemplate({ name, subtitle, children }: PageTemplateProps) {
 
       <main
         className="page-template"
-        aria-label={`${name} page template`}
+        aria-label={`${name} ${t('pageTemplate.ariaLabel')}`}
         style={{
           flex: 1,
           padding: '40px 48px',
@@ -119,7 +150,7 @@ export function PageTemplate({ name, subtitle, children }: PageTemplateProps) {
               fontWeight: 700,
             }}
           >
-            {activeLabel}
+            {t(activeLabelKey)}
           </p>
 
           <h1

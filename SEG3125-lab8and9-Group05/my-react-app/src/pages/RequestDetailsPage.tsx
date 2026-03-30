@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { requestsService } from '../services'
 import type { NoteRequest, RequestReply } from '../types/models'
 import { PageTemplate } from './PageTemplate'
 
 export function RequestDetailsPage() {
+  const { t } = useTranslation()
   const { requestId } = useParams()
 
   const [request, setRequest] = useState<NoteRequest | null>(null)
@@ -17,7 +19,7 @@ export function RequestDetailsPage() {
   useEffect(() => {
     if (!requestId) {
       setLoading(false)
-      setErrorMessage('Invalid request ID.')
+      setErrorMessage(t('requestDetails.errors.invalidId'))
       return
     }
 
@@ -36,14 +38,14 @@ export function RequestDetailsPage() {
         setRequest(requestResponse)
         setReplies(repliesResponse)
       } catch (error) {
-        setErrorMessage(error instanceof Error ? error.message : 'Failed to load request details.')
+        setErrorMessage(error instanceof Error ? error.message : t('requestDetails.errors.loadRequest'))
       } finally {
         setLoading(false)
       }
     }
 
     void loadDetails()
-  }, [requestId])
+  }, [requestId, t])
 
   async function addReply() {
     if (!newReply.trim() || !requestId) return
@@ -56,7 +58,7 @@ export function RequestDetailsPage() {
       setReplies(updatedReplies)
       setNewReply('')
     } catch (error) {
-      setErrorMessage(error instanceof Error ? error.message : 'Failed to add reply.')
+      setErrorMessage(error instanceof Error ? error.message : t('requestDetails.errors.addReply'))
     } finally {
       setSubmitting(false)
     }
@@ -64,8 +66,8 @@ export function RequestDetailsPage() {
 
   return (
     <PageTemplate
-      name="Request Details"
-      subtitle="Follow the discussion, review existing replies, and contribute your answer."
+      name={t('requestDetails.title')}
+      subtitle={t('requestDetails.subtitle')}
     >
       <section
         style={{
@@ -77,20 +79,30 @@ export function RequestDetailsPage() {
         }}
       >
         <p style={{ margin: '0 0 8px 0', color: '#6b7280', fontSize: '0.92rem' }}>
-          Request ID: {requestId}
+          {t('requestDetails.requestId')} {requestId}
         </p>
 
-        {loading ? <p style={{ margin: '0 0 8px 0', color: '#6b7280' }}>Loading request details...</p> : null}
+        {loading ? (
+          <p style={{ margin: '0 0 8px 0', color: '#6b7280' }}>
+            {t('requestDetails.loading')}
+          </p>
+        ) : null}
 
-        {errorMessage ? <p style={{ margin: '0 0 8px 0', color: '#b91c1c' }}>{errorMessage}</p> : null}
+        {errorMessage ? (
+          <p style={{ margin: '0 0 8px 0', color: '#b91c1c' }}>
+            {errorMessage}
+          </p>
+        ) : null}
 
         {!loading && request ? (
-          <p style={{ margin: '0 0 8px 0', color: '#374151', lineHeight: 1.6 }}>{request.details}</p>
+          <p style={{ margin: '0 0 8px 0', color: '#374151', lineHeight: 1.6 }}>
+            {request.details}
+          </p>
         ) : null}
 
         {!loading && request ? (
           <p style={{ margin: 0, color: '#6b7280', fontSize: '0.92rem' }}>
-            Status: {request.status || 'open'}
+            {t('requestDetails.status')} {request.status || t('requestDetails.open')}
           </p>
         ) : null}
       </section>
@@ -104,7 +116,9 @@ export function RequestDetailsPage() {
           marginBottom: '20px',
         }}
       >
-        <h3 style={{ margin: '0 0 14px 0', fontSize: '1.2rem' }}>Replies</h3>
+        <h3 style={{ margin: '0 0 14px 0', fontSize: '1.2rem' }}>
+          {t('requestDetails.replies')}
+        </h3>
 
         {replies.map((reply) => (
           <div
@@ -120,14 +134,16 @@ export function RequestDetailsPage() {
             }}
           >
             <div style={{ marginBottom: '4px', color: '#111827', fontWeight: 600 }}>
-              {reply.author?.displayName || 'Anonymous'}
+              {reply.author?.displayName || t('requestDetails.anonymous')}
             </div>
             <div>{reply.body}</div>
           </div>
         ))}
 
         {!loading && !errorMessage && replies.length === 0 ? (
-          <p style={{ margin: 0, color: '#6b7280' }}>No replies yet. Be the first to answer.</p>
+          <p style={{ margin: 0, color: '#6b7280' }}>
+            {t('requestDetails.noReplies')}
+          </p>
         ) : null}
       </section>
 
@@ -139,10 +155,12 @@ export function RequestDetailsPage() {
           padding: '20px',
         }}
       >
-        <h3 style={{ margin: '0 0 14px 0', fontSize: '1.2rem' }}>Add Reply</h3>
+        <h3 style={{ margin: '0 0 14px 0', fontSize: '1.2rem' }}>
+          {t('requestDetails.addReply')}
+        </h3>
 
         <textarea
-          placeholder="Write reply..."
+          placeholder={t('requestDetails.writeReply')}
           value={newReply}
           onChange={(e) => setNewReply(e.target.value)}
           style={{
@@ -172,7 +190,7 @@ export function RequestDetailsPage() {
             cursor: submitting ? 'not-allowed' : 'pointer',
           }}
         >
-          {submitting ? 'Adding...' : 'Add Reply'}
+          {submitting ? t('requestDetails.adding') : t('requestDetails.addReply')}
         </button>
       </section>
     </PageTemplate>
