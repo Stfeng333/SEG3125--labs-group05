@@ -37,5 +37,5 @@ Check: http://localhost:4000/api/health
 ## Team Notes
 
 - **Backend developers**: do not modify `src/routes/`, `src/db/`, or `src/config.js` unless fixing bugs
-- **Database changes**: create new migration files in `backend/migrations/` (do not edit old files)
-- After pulling new schema changes: run `npm run db:migrate`
+- **Database changes**: create new migration files in `backend/migrations/`
+- After pulling new schema changes: you have to run `npm run db:migrate`

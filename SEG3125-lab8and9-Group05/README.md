@@ -1,7 +1,7 @@
 ﻿# SEG3125-lab9-group05
 
 NoteHub is a React + Node + PostgreSQL app for posting/requesting/sharing notes. As a user, you can also join classes/courses
-to be part of specific notes communities, rate notes, reply to requests, have your own profile, and explore
+to be part of specific notes communities, rate notes, reply to requests, have your own profile, and explore.
 
 ## Prerequisites you need to have installed
 
@@ -57,22 +57,6 @@ Press Ctrl + C in each terminal, then from the root terminal:
 ```powershell
 docker compose down
 ```
-
-## Teammate Guide
-
-### Edit UI Visuals
-
-- **Global styles**: `my-react-app/src/index.css`, `my-react-app/src/App.css`
-- **Page layouts**: `my-react-app/src/pages/*.tsx` (any .tsx file)
-- **Layout template**: `my-react-app/src/pages/PageTemplate.tsx`
-
-### To add Bootstrap components
-
-1. Install: `cd my-react-app && npm install bootstrap`
-2. Import in page file: `import 'bootstrap/dist/css/bootstrap.min.css'`
-3. Use Bootstrap classes: `<div className="container"><div className="row"><div className="col-md-6">...</div></div></div>`
-4. View all components: https://getbootstrap.com/docs/5.3/components/
-
 ### To add Bilingualism feature (English + French)
 
 1. Install i18n: `cd my-react-app && npm install i18next react-i18next`
@@ -117,14 +101,3 @@ docker compose down
      "notes": { "post": "Post a Note" }
    }
    ```
-
-### Internationalization Best Practices
-
-- Keep all UI text in translation files, not hardcoded
-- Add translations before teammates translate
-- Test both languages before pushing
-
-### Keep Functionality Intact
-
-- Only edit CSS, HTML structure, and text
-- Try to improve logic, API calls, or data types

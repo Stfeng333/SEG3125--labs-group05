@@ -32,47 +32,7 @@ npm run build
 ```
 
 ---
-
-## Teammate guide: things to modify
-
-### 1. To edit UI visuals
-
-- **Global styles**: `src/index.css` (colors, fonts, spacing)
-- **App layout**: `src/App.css`
-- **Page templates**: `src/pages/PageTemplate.tsx` (shared header/sidebar)
-- **Page content**: `src/pages/*.tsx` (HomePage.tsx, NotesPage.tsx, etc.)
-
-**Do NOT edit**: `src/services/`, `src/lib/`, `src/types/`, `src/config/`
-
-### 2. To add Bootstrap components
-
-1. Install:
-
-   ```powershell
-   npm install bootstrap
-   ```
-
-2. Import at top of page or in src/main.tsx:
-
-   ```javascript
-   import 'bootstrap/dist/css/bootstrap.min.css'
-   ```
-
-3. Use in JSX:
-
-   ```jsx
-   <div className="container mt-5">
-     <div className="row">
-       <div className="col-md-6">
-         <button className="btn btn-primary">Click me</button>
-       </div>
-     </div>
-   </div>
-   ```
-
-4. Full docs: https://getbootstrap.com/docs/5.3/components/
-
-### 3. Add the bilingual support (English + French) requirement
+### Add the bilingual support (English + French) requirement
 
 1. Install i18n:
 
