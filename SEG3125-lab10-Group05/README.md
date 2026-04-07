@@ -1,45 +1,55 @@
-# SEG3125-lab5-Group05
-This is lab 5
+# SEG3125 Lab 10 - Cycler Forever enchanced with a chatbot
+- A static website of a bicycle repair shop where users book appointments (HTML, CSS, JavaScript)
+- A booking flow (service, staff, date/time, contact, payment demo)
+- A Dialogflow CX Messenger widget in `index.html`
 
-This is an improvement of lab 4, keeping all the requriements from lab 4, we will add the requirements for lab 5
+Dialogflow CX settings currently used to integrate the chatbot into the website:
+- Project ID: `seg3125-lab10-group05`
+- Agent ID: `2ac5fdf7-a0e1-4138-b9a8-ebdec4ad01eb`
+- Language: `en`
+- Chat bubble title: `Rebike Agent`
 
-The contributions were equal, the repository will be posted in the GitHub classroom of the course, and the personal repository is Stfeng333... https://github.com/Stfeng333/SEG3125--labs-group05 
+## Quick start (recommended)
 
-The website itself is published by Sahara at... https://sammysahara.github.io/cycler-forever/
+Use a local web server (not double-clicking the HTML file).
 
-new features added (based on Don Norman's Design Principles):
+### To run the project locally
+From inside `SEG3125-lab10-Group05`, run:
 
-**Feedback**
-- All warning and error messages are now shown as animated toast notifications in the corner of the screen
-- Clicking a service or staff card triggers a brief pulse animation on the card to confirm the selection was registered
-- Every contact form field in Step 4 turns green when filled correctly and red when input is invalid, updating live as the user types
-- A live progress message below the contact form tells the user exactly which fields are still missing before they can continue
-- The Submit button shows a loading spinner while the booking is being processed
-- An accessibility live region silently announces all major state changes to screen reader users throughout the booking process
+```bash
+python -m http.server 5500
+```
 
-**Visibility**
-- Each disabled "Next" button permanently displays a short hint explaining what the user must do to unlock it
-- Completed steps in the progress bar are marked with a green checkmark
-- Steps not yet reached are visually dimmed
+Then open:
 
-**Affordance**
-- The phone number field shows a placeholder example, limits input to 10 characters, and activates a numeric keyboard on mobile devices
-- Required fields are labeled with asterisks or parenthetical notes so users know the rules before they start filling the form
-- Name, email, and phone fields support browser autofill and password manager suggestions to reduce manual typing effort
+- `http://localhost:5500/index.html`
 
-**Mapping**
-- After choosing a service, technicians whose expertise matches that service are automatically highlighted with a "Recommended" badge
-- Completed step labels in the progress bar become clickable links, allowing users to jump back to any previous step without using the Back button
+## Requirements
 
-**Consistency**
-- All validation warnings across every step of the form use the same toast notification style
-- All contact form fields follow the same visual structure
+- Internet connection is required for:
+	- Bootstrap CDN
+	- Bootstrap Icons CDN
+	- Dialogflow Messenger script and theme from Google
 
-**Constraints**
-- The "previous month" arrow on the date picker calendar is disabled when the user is already viewing the current month
-- The phone number field automatically removes any non-numeric characters as the user types, making it impossible to enter an incorrectly formatted number
+## Troubleshooting
 
----
+### Chat bubble does not appear
 
-**Contributions per member**
-- 1/3 by Ahmed Salma (added icons to services, experts, and more elements, upgraded feedback and constraints to adhere to the principles, and optimized the NavBar), 1/3 by Sahara Sammy (added the payment section with respective fields such as credit card, published website on GitHub Pages), 1/3 by Steven Feng Peng (upgraded the visibility, affordance, mapping and consistency elements according to Norman’s Principles, made PDF and updated README)
+- Refresh the page (Ctrl+F5)
+- Check internet connection
+- Open browser DevTools console and look for blocked script/network errors
+- Confirm the Dialogflow script URL loads:
+	- `https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js`
+
+### Chat bubble appears but bot does not reply
+
+- Verify the Dialogflow CX agent is still active in Google Cloud
+- Confirm integration is enabled for web messenger in Dialogflow CX
+- If domain restrictions are configured in Dialogflow, add local hostnames:
+	- `localhost`
+	- `127.0.0.1`
+
+### Page looks broken or unstyled
+
+- Make sure you are running from `http://...`, not `file://...`
+- Confirm `styles.css` and `scripts.js` are in the same folder as `index.html`
